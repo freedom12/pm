@@ -39,7 +39,7 @@ class GFPackage {
         }
         
         containters = []
-        for i in 0...(entryCount-1) {
+        for i in 0 ..< 1 {
             file.seek(to: entries[i].addr)
             
             containters.append(GFModelContainter.init(withFile: file))

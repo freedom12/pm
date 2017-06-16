@@ -120,7 +120,7 @@ class GFModelContainter:GFContainer {
         let boneCount = file.readUInt32()
         file.seek(by: 0xc)
         bones = []
-        for _ in 0...(boneCount-1) {
+        for _ in 0 ..< boneCount {
             let bone = GFBone.init(withFile: file)
             bones.append(bone)
         }
@@ -130,7 +130,7 @@ class GFModelContainter:GFContainer {
         let lutLen = file.readUInt32()
         file.skipPadding()
         luts = []
-        for i in 0...(lutCount-1) {
+        for i in 0 ..< lutCount {
             let lut = GFLut.init(withFile: file, andLen: lutLen)
             lut.name = "smaple_" + String(i)
             luts.append(lut)
@@ -138,21 +138,16 @@ class GFModelContainter:GFContainer {
     }
     
     private func readMaterial() {
-        materials = []
-        for name in materialNames {
-            let material = GFMaterial.init(withFile: file)
-            material.name = name.name
-            materials.append(material)
-        }
+        let meterial = GFMaterial.init(withFile: file)
+        meterial.name = materialNames[materials.count].name
+        materials.append(meterial)
+        
     }
     
     private func readMesh() {
-        meshes = []
-        for name in meshNames {
-            let mesh = GFMesh.init(withFile: file)
-            mesh.name = name.name
-            meshes.append(mesh)
-        }
+        let mesh = GFMesh.init(withFile: file)
+        mesh.name = meshNames[meshes.count].name
+        meshes.append(mesh)
     }
     
     private func getHashNames() -> [HashName] {

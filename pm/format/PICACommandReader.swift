@@ -70,6 +70,7 @@ class PICACommandReader {
     
     private var uniformIndex = 0
     private var isUniform32Bits = false
+    private var words:[Int] = Array.init(repeating: 0, count: 3)
     private func checkUniforms( withCmd cmd:PICACommand ) {
         switch cmd.register {
         case .GPUREG_VSH_FLOATUNIFORM_INDEX:
@@ -99,17 +100,16 @@ class PICACommandReader {
                     default: break
                     }
                 } else {
-//                    todo
-//                    switch (uniformIndex & 3) {
-//                    case 0: uniforms[index].x = param
-//                    case 1: uniforms[index].y = param
-//                    case 2: uniforms[index].z = param
-//                    case 3: uniforms[index].w = param
-//                    default: break
+                    words[uniformIndex & 3] = param
                     if ((uniformIndex & 3) == 2) {
                         uniformIndex = uniformIndex + 1
-//                        uniforms[index] = picaVectF24
-                        uniforms[index] = Vector4.init(0, 0, 0, 0)
+                        
+                        let x = getFloat24(value: words[2] & 0xffffff)
+                        let y = getFloat24(value: (words[2] >> 24) | ((words[1] & 0xffffff) << 8))
+                        let z = getFloat24(value: (words[1] >> 16) | ((words[0] & 0xff) << 16))
+                        let w = getFloat24(value: words[0] >> 8)
+                        
+                        uniforms[index] = Vector4.init(x, y, z, w)
                     }
                 }
                 
@@ -117,6 +117,28 @@ class PICACommandReader {
             }
         default: break
         }
+    }
+    
+    private func getFloat24( value:Int ) -> Float {
+        var tmpValue = 0
+        if ((value & 0x7fffff) != 0) {
+            let mantissa = value & 0xffff
+            let exponent = ((value >> 16) & 0x7f) + 64
+            let signBit = (value >> 23) & 1
+            
+            tmpValue = mantissa << 7
+            tmpValue = tmpValue | (exponent << 23)
+            tmpValue = tmpValue | (signBit << 31)
+        } else {
+            tmpValue = (value & 0x800000) << 8
+        }
+        
+        var tmp = UInt32(tmpValue)
+        let data = NSData.init(bytes: &tmp, length: 4)
+        var ret:Float = 0
+        data.getBytes(&ret, length: 4)
+        
+        return ret
     }
 }
 

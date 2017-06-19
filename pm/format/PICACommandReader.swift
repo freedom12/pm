@@ -142,8 +142,16 @@ class PICACommandReader {
     }
 }
 
-struct PICAVectFloat24 {
-    
+struct PICAAttr {
+    var name:PICAAttrName = .position
+    var formate:PICAAttrFormate = .byte
+    var elements = 0
+    var scale:Float = 0
+}
+
+struct PICAFixedAttr {
+    var name:PICAAttrName = .position
+    var value = Vector4.init(x: 0, y: 0, z: 0, w: 0)
 }
 
 enum PICAFragMode:Int {

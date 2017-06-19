@@ -29,6 +29,8 @@
 		399FDAA61EF120A2006B93BA /* GFModelContainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399FDAA51EF120A2006B93BA /* GFModelContainter.swift */; };
 		399FDAAB1EF125A6006B93BA /* VectorMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399FDAAA1EF12523006B93BA /* VectorMath.swift */; };
 		399FDAAD1EF12D49006B93BA /* GFContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399FDAAC1EF12D49006B93BA /* GFContainer.swift */; };
+		39D5C6281EF77BEE003DE7F1 /* GFSubMesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D5C6271EF77BEE003DE7F1 /* GFSubMesh.swift */; };
+		39D5C62C1EF784CA003DE7F1 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D5C62B1EF784CA003DE7F1 /* Util.swift */; };
 		39D7E8071EF2CC6000F315BA /* GFBone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D7E8061EF2CC6000F315BA /* GFBone.swift */; };
 		39FC0B8C1EF1107C00675191 /* FileHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FC0B8B1EF1107C00675191 /* FileHandle.swift */; };
 		39FC0B8F1EF1158700675191 /* GFPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FC0B8E1EF1158700675191 /* GFPackage.swift */; };
@@ -59,6 +61,8 @@
 		399FDAA51EF120A2006B93BA /* GFModelContainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFModelContainter.swift; sourceTree = "<group>"; };
 		399FDAAA1EF12523006B93BA /* VectorMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorMath.swift; sourceTree = "<group>"; };
 		399FDAAC1EF12D49006B93BA /* GFContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFContainer.swift; sourceTree = "<group>"; };
+		39D5C6271EF77BEE003DE7F1 /* GFSubMesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFSubMesh.swift; sourceTree = "<group>"; };
+		39D5C62B1EF784CA003DE7F1 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		39D7E8061EF2CC6000F315BA /* GFBone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFBone.swift; sourceTree = "<group>"; };
 		39FC0B8B1EF1107C00675191 /* FileHandle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHandle.swift; sourceTree = "<group>"; };
 		39FC0B8E1EF1158700675191 /* GFPackage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFPackage.swift; sourceTree = "<group>"; };
@@ -121,6 +125,7 @@
 				39597C3C1EF0DF4C00DBF3D4 /* LaunchScreen.storyboard */,
 				39597C3F1EF0DF4C00DBF3D4 /* Info.plist */,
 				39FC0B8B1EF1107C00675191 /* FileHandle.swift */,
+				39D5C62B1EF784CA003DE7F1 /* Util.swift */,
 			);
 			path = pm;
 			sourceTree = "<group>";
@@ -144,6 +149,7 @@
 				3931FC741EF3A1F100B872A9 /* GFMaterial.swift */,
 				3931FC761EF3B02500B872A9 /* GFTexture.swift */,
 				390C12541EF3D546001D6B8E /* GFMesh.swift */,
+				39D5C6271EF77BEE003DE7F1 /* GFSubMesh.swift */,
 			);
 			path = format;
 			sourceTree = "<group>";
@@ -235,7 +241,9 @@
 				399FDAAB1EF125A6006B93BA /* VectorMath.swift in Sources */,
 				399FDAA61EF120A2006B93BA /* GFModelContainter.swift in Sources */,
 				39597C361EF0DF4C00DBF3D4 /* ViewController.swift in Sources */,
+				39D5C62C1EF784CA003DE7F1 /* Util.swift in Sources */,
 				3931FC751EF3A1F100B872A9 /* GFMaterial.swift in Sources */,
+				39D5C6281EF77BEE003DE7F1 /* GFSubMesh.swift in Sources */,
 				39FC0B8C1EF1107C00675191 /* FileHandle.swift in Sources */,
 				390C12551EF3D546001D6B8E /* GFMesh.swift in Sources */,
 				399FDAAD1EF12D49006B93BA /* GFContainer.swift in Sources */,
@@ -286,6 +294,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
@@ -341,6 +351,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;

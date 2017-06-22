@@ -7,15 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3909E45D1EF0E641002036CC /* file_00008.pc in Resources */ = {isa = PBXBuildFile; fileRef = 3909E4541EF0E61E002036CC /* file_00008.pc */; };
-		3909E45E1EF0E641002036CC /* file_00009.pc in Resources */ = {isa = PBXBuildFile; fileRef = 3909E4551EF0E61E002036CC /* file_00009.pc */; };
-		3909E45F1EF0E641002036CC /* file_00006.pc in Resources */ = {isa = PBXBuildFile; fileRef = 3909E4561EF0E61E002036CC /* file_00006.pc */; };
-		3909E4601EF0E641002036CC /* file_00002.pc in Resources */ = {isa = PBXBuildFile; fileRef = 3909E4571EF0E61E002036CC /* file_00002.pc */; };
-		3909E4611EF0E641002036CC /* file_00003.pc in Resources */ = {isa = PBXBuildFile; fileRef = 3909E4581EF0E61E002036CC /* file_00003.pc */; };
-		3909E4621EF0E641002036CC /* file_00007.pc in Resources */ = {isa = PBXBuildFile; fileRef = 3909E4591EF0E61E002036CC /* file_00007.pc */; };
-		3909E4631EF0E641002036CC /* file_00004.pc in Resources */ = {isa = PBXBuildFile; fileRef = 3909E45A1EF0E61E002036CC /* file_00004.pc */; };
-		3909E4641EF0E641002036CC /* file_00005.pc in Resources */ = {isa = PBXBuildFile; fileRef = 3909E45B1EF0E61E002036CC /* file_00005.pc */; };
-		3909E4651EF0E641002036CC /* file_00001.pc in Resources */ = {isa = PBXBuildFile; fileRef = 3909E45C1EF0E61E002036CC /* file_00001.pc */; };
 		390C12551EF3D546001D6B8E /* GFMesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C12541EF3D546001D6B8E /* GFMesh.swift */; };
 		3931FC6F1EF2D27B00B872A9 /* GFLut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3931FC6E1EF2D27B00B872A9 /* GFLut.swift */; };
 		3931FC731EF3743A00B872A9 /* PICACommandReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3931FC721EF3743A00B872A9 /* PICACommandReader.swift */; };
@@ -35,6 +26,7 @@
 		399FDAAD1EF12D49006B93BA /* GFContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399FDAAC1EF12D49006B93BA /* GFContainer.swift */; };
 		39B249FE1EF90E9A003C1F77 /* Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B249FD1EF90E9A003C1F77 /* Mesh.swift */; };
 		39B24A001EF90F2F003C1F77 /* SubMesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B249FF1EF90F2F003C1F77 /* SubMesh.swift */; };
+		39B7D8211EFB7282002BA65E /* res.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 39B7D8201EFB7276002BA65E /* res.bundle */; };
 		39CB9BD51EF79FC900280DD5 /* Shader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 39CB9BD41EF79FC900280DD5 /* Shader.metal */; };
 		39CB9BDA1EF7A55600280DD5 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CB9BD91EF7A55600280DD5 /* Model.swift */; };
 		39D5C6281EF77BEE003DE7F1 /* GFSubMesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D5C6271EF77BEE003DE7F1 /* GFSubMesh.swift */; };
@@ -45,15 +37,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3909E4541EF0E61E002036CC /* file_00008.pc */ = {isa = PBXFileReference; lastKnownFileType = file; path = file_00008.pc; sourceTree = "<group>"; };
-		3909E4551EF0E61E002036CC /* file_00009.pc */ = {isa = PBXFileReference; lastKnownFileType = file; path = file_00009.pc; sourceTree = "<group>"; };
-		3909E4561EF0E61E002036CC /* file_00006.pc */ = {isa = PBXFileReference; lastKnownFileType = file; path = file_00006.pc; sourceTree = "<group>"; };
-		3909E4571EF0E61E002036CC /* file_00002.pc */ = {isa = PBXFileReference; lastKnownFileType = file; path = file_00002.pc; sourceTree = "<group>"; };
-		3909E4581EF0E61E002036CC /* file_00003.pc */ = {isa = PBXFileReference; lastKnownFileType = file; path = file_00003.pc; sourceTree = "<group>"; };
-		3909E4591EF0E61E002036CC /* file_00007.pc */ = {isa = PBXFileReference; lastKnownFileType = file; path = file_00007.pc; sourceTree = "<group>"; };
-		3909E45A1EF0E61E002036CC /* file_00004.pc */ = {isa = PBXFileReference; lastKnownFileType = file; path = file_00004.pc; sourceTree = "<group>"; };
-		3909E45B1EF0E61E002036CC /* file_00005.pc */ = {isa = PBXFileReference; lastKnownFileType = file; path = file_00005.pc; sourceTree = "<group>"; };
-		3909E45C1EF0E61E002036CC /* file_00001.pc */ = {isa = PBXFileReference; lastKnownFileType = file; path = file_00001.pc; sourceTree = "<group>"; };
 		390C12541EF3D546001D6B8E /* GFMesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFMesh.swift; sourceTree = "<group>"; };
 		3931FC6E1EF2D27B00B872A9 /* GFLut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFLut.swift; sourceTree = "<group>"; };
 		3931FC721EF3743A00B872A9 /* PICACommandReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PICACommandReader.swift; sourceTree = "<group>"; };
@@ -75,6 +58,7 @@
 		399FDAAC1EF12D49006B93BA /* GFContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFContainer.swift; sourceTree = "<group>"; };
 		39B249FD1EF90E9A003C1F77 /* Mesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mesh.swift; sourceTree = "<group>"; };
 		39B249FF1EF90F2F003C1F77 /* SubMesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubMesh.swift; sourceTree = "<group>"; };
+		39B7D8201EFB7276002BA65E /* res.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = res.bundle; sourceTree = "<group>"; };
 		39CB9BD41EF79FC900280DD5 /* Shader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shader.metal; sourceTree = "<group>"; };
 		39CB9BD91EF7A55600280DD5 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		39D5C6271EF77BEE003DE7F1 /* GFSubMesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFSubMesh.swift; sourceTree = "<group>"; };
@@ -95,26 +79,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3909E4531EF0E61E002036CC /* res */ = {
-			isa = PBXGroup;
-			children = (
-				3909E4541EF0E61E002036CC /* file_00008.pc */,
-				3909E4551EF0E61E002036CC /* file_00009.pc */,
-				3909E4561EF0E61E002036CC /* file_00006.pc */,
-				3909E4571EF0E61E002036CC /* file_00002.pc */,
-				3909E4581EF0E61E002036CC /* file_00003.pc */,
-				3909E4591EF0E61E002036CC /* file_00007.pc */,
-				3909E45A1EF0E61E002036CC /* file_00004.pc */,
-				3909E45B1EF0E61E002036CC /* file_00005.pc */,
-				3909E45C1EF0E61E002036CC /* file_00001.pc */,
-			);
-			path = res;
-			sourceTree = "<group>";
-		};
 		39597C271EF0DF4C00DBF3D4 = {
 			isa = PBXGroup;
 			children = (
-				3909E4531EF0E61E002036CC /* res */,
+				39B7D8201EFB7276002BA65E /* res.bundle */,
 				39597C321EF0DF4C00DBF3D4 /* pm */,
 				39597C311EF0DF4C00DBF3D4 /* Products */,
 				399FDAA71EF12222006B93BA /* Frameworks */,
@@ -244,15 +212,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3909E45D1EF0E641002036CC /* file_00008.pc in Resources */,
-				3909E45E1EF0E641002036CC /* file_00009.pc in Resources */,
-				3909E45F1EF0E641002036CC /* file_00006.pc in Resources */,
-				3909E4601EF0E641002036CC /* file_00002.pc in Resources */,
-				3909E4611EF0E641002036CC /* file_00003.pc in Resources */,
-				3909E4621EF0E641002036CC /* file_00007.pc in Resources */,
-				3909E4631EF0E641002036CC /* file_00004.pc in Resources */,
-				3909E4641EF0E641002036CC /* file_00005.pc in Resources */,
-				3909E4651EF0E641002036CC /* file_00001.pc in Resources */,
+				39B7D8211EFB7282002BA65E /* res.bundle in Resources */,
 				39597C3E1EF0DF4C00DBF3D4 /* LaunchScreen.storyboard in Resources */,
 				39597C3B1EF0DF4C00DBF3D4 /* Assets.xcassets in Resources */,
 				39597C391EF0DF4C00DBF3D4 /* Main.storyboard in Resources */,

@@ -46,11 +46,12 @@ class Material {
             textureNames.append(textureName)
             
             let desc = MTLSamplerDescriptor.init()
-            desc.minFilter = .linear
-            desc.magFilter = .linear
-            desc.sAddressMode = .mirrorRepeat
-            desc.tAddressMode = .repeat
-            let samplerState = device.makeSamplerState(descriptor: desc)
+            desc.minFilter = sampler.minFilter.to()
+            desc.magFilter = sampler.magFilter.to()
+            desc.sAddressMode = sampler.wrapU.to()
+            desc.tAddressMode = sampler.wrapV.to()
+            desc.lodMinClamp = Float(sampler.minLOD)
+            let samplerState = device.makeSamplerState(descriptor: desc)!
             samplerStates.append(samplerState)
         }
         

@@ -94,8 +94,8 @@ class GFSubMesh {
                 let attrFormate = bufferFormats >> (permutationIndex*4) & 0xf
                 
                 var attr = PICAAttr.init()
-                attr.name = PICAAttrName.init(rawValue: Int(attrName))!
-                attr.formate = PICAAttrFormate.init(rawValue: Int(attrFormate & 3))!
+                attr.name = PICAAttrName(rawValue: Int(attrName))!
+                attr.formate = PICAAttrFormate(rawValue: Int(attrFormate & 3))!
                 attr.elements = Int(attrFormate >> 2) + 1
                 attr.scale = GFSubMesh.scales[Int(attrFormate & 3)]
                 
@@ -107,7 +107,7 @@ class GFSubMesh {
                 let attrName = (bufferPermutation >> (u_long(i)*4)) & 0xf
                 
                 var fixedAttr = PICAFixedAttr.init()
-                fixedAttr.name = PICAAttrName.init(rawValue: Int(attrName))!
+                fixedAttr.name = PICAAttrName(rawValue: Int(attrName))!
                 fixedAttr.value = Util.float24ToVect4(words: fixed[i])
                 
                 if (fixedAttr.name == .color || fixedAttr.name == .boneWeight) {
@@ -131,14 +131,6 @@ class GFSubMesh {
     
     public func readVertBuffer() {
         rawBuffer = NSData.init(data: file.readData(ofLength: vertLength))
-//        if name == "BodyA" {
-//            for i in 1 ... indexCount {
-//                print(i, file.readSingle(), file.readSingle(), file.readSingle())
-//                file.seek(by: 56-12)
-//            }
-//        } else {
-//            rawBuffer = NSData.init(data: file.readData(ofLength: vertLength))
-//        }
     }
     
     public func readIndexBuffer() {
@@ -152,21 +144,3 @@ class GFSubMesh {
     }
 }
 
-enum PICAAttrFormate:Int {
-    case byte = 0
-    case uByte
-    case short
-    case float
-}
-
-enum PICAAttrName:Int {
-    case position = 0
-    case normal
-    case tangent
-    case color
-    case texCoord0
-    case texCoord1
-    case texCoord2
-    case boneIndex
-    case boneWeight
-}

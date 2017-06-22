@@ -29,7 +29,7 @@ class GFTexture {
         width = file.readInt16()
         height = file.readInt16()
         let tmp = file.readInt16()
-        format = GFTextureFormat.init(rawValue: tmp)!
+        format = GFTextureFormat(rawValue: tmp)!
         mipmapSize = file.readInt16()
         
         file.seek(by: 0x10)

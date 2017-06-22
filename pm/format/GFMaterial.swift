@@ -189,12 +189,12 @@ class GFMaterial {
             case .GPUREG_TEXUNIT2_BORDER_COLOR: borderColor[2] = Color.init(withInt: param)
             case .GPUREG_COLOR_OPERATION: colorOpt = PICAColorOpt.init(withInt: param)
             case .GPUREG_BLEND_FUNC: blend = PICABlend.init(withInt: param)
-            case .GPUREG_LOGIC_OP: logicalOpt = PICALogicalOpt.init(rawValue: (param & 0xf))!
+            case .GPUREG_LOGIC_OP: logicalOpt = PICALogicalOpt(rawValue: (param & 0xf))!
             case .GPUREG_FRAGOP_ALPHA_TEST: alphaTest = PICAAlphaTest.init(withInt: param)
             case .GPUREG_STENCIL_TEST: stencilTest = PICAStencilTest.init(withInt: param)
             case .GPUREG_STENCIL_OP: stencilOpt = PICAStencilOpt.init(withInt: param)
             case .GPUREG_DEPTH_COLOR_MASK: depthColorMask = PICADepthColorMask.init(withInt: param)
-            case .GPUREG_FACECULLING_CONFIG: faceCulling = PICAFaceCulling.init(rawValue: (param & 3))!
+            case .GPUREG_FACECULLING_CONFIG: faceCulling = PICAFaceCulling(rawValue: (param & 3))!
             case .GPUREG_COLORBUFFER_READ: colorBufferRead = (param & 0xf) == 0xf
             case .GPUREG_COLORBUFFER_WRITE: colorBufferWrite = (param & 0xf) == 0xf
             case .GPUREG_DEPTHBUFFER_READ:
@@ -228,35 +228,3 @@ class GFMaterial {
     }
 }
 
-enum PICALogicalOpt:Int {
-    case clear = 0
-    case and
-    case andReverse
-    case copy
-    case set
-    case copyInverted
-    case noop
-    case invert
-    case nand
-    case or
-    case nor
-    case xor
-    case equiv
-    case andInverted
-    case orReverse
-    case orInverted
-}
-
-enum PICAFaceCulling:Int {
-    case never = 0
-    case front
-    case back
-    
-    func to() -> MTLCullMode {
-        switch self {
-        case .never: return MTLCullMode.none
-        case .front: return MTLCullMode.back
-        case .back: return MTLCullMode.front
-        }
-    }
-}

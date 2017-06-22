@@ -57,8 +57,8 @@ class ViewController: UIViewController, MTKViewDelegate {
     }
     
     func draw(in view: MTKView ) {
-        let commandBuffer = commandQueue!.makeCommandBuffer()
-        let renderEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: mtkView.currentRenderPassDescriptor!)
+        let commandBuffer = commandQueue!.makeCommandBuffer()!
+        let renderEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: mtkView.currentRenderPassDescriptor!)!
         renderEncoder.setVertexBuffer(projMatBuffer, offset: 0, index: 1)
         renderEncoder.setVertexBuffer(mvMatBuffer, offset: 0, index: 2)
         for mesh in model.meshes {
@@ -161,13 +161,13 @@ class ViewController: UIViewController, MTKViewDelegate {
     func load() {
         let package = GFPackage.init()
         
-        let modelPath = Bundle.main.path(forResource: "res.bundle/file_00001", ofType: "pc")
-        let modelFile = FileHandle.init(forReadingAtPath: modelPath!)!
+        let modelPath = Bundle.main.path(forResource: "res.bundle/file_00001", ofType: "pc")!
+        let modelFile = FileHandle.init(forReadingAtPath: modelPath)!
         package.merg(withFile: modelFile)
         modelFile.closeFile()
         
-        let texturePath = Bundle.main.path(forResource: "res.bundle/file_00002", ofType: "pc")
-        let textureFile = FileHandle.init(forReadingAtPath: texturePath!)!
+        let texturePath = Bundle.main.path(forResource: "res.bundle/file_00002", ofType: "pc")!
+        let textureFile = FileHandle.init(forReadingAtPath: texturePath)!
         package.merg(withFile: textureFile)
         textureFile.closeFile()
         

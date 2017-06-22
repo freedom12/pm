@@ -2,7 +2,7 @@
 //  GFTexture.swift
 //  pm
 //
-//  Created by wanghuai on 2017/6/16.
+//  Created by wanghuai on 2017/6/21.
 //  Copyright © 2017年 wanghuai. All rights reserved.
 //
 
@@ -10,74 +10,46 @@ import Foundation
 
 class GFTexture {
     var file:FileHandle
-    
-    var hash = 0
     var name = ""
     
-    var mappingType:GFTextureMappingType = .UVCoordinateMap
-    var scale = Vector2.init(0, 0)
-    var rotation:Float = 0
-    var position = Vector2.init(0, 0)
+    var width = 0
+    var height = 0
+    var format:GFTextureFormat = .RGB565
+    var mipmapSize = 0
     
-    var wrapU:GFTextureWrap = .clampToEdge
-    var wrapV:GFTextureWrap = .clampToEdge
-    
-    var MaxFilter:GFTextureMaxFilter = .nearest
-    var MinFilter:GFTextureMinFilter = .nearest
-    
-    var minLOD = 0
+    var rawBuffer:NSData = NSData.init()
     
     init( withFile _file:FileHandle ) {
         file = _file
         
-        hash = file.readUInt32()
-        name = file.readStringByte()
+        let length = file.readUInt32()
+        file.seek(by: 0xc)
+        name = file.readString(len: 0x40)
         
-        _ = file.readUInt8()
-        mappingType = GFTextureMappingType.init(rawValue: file.readUInt8())!
+        width = file.readInt16()
+        height = file.readInt16()
+        let tmp = file.readInt16()
+        format = GFTextureFormat.init(rawValue: tmp)!
+        mipmapSize = file.readInt16()
         
-        scale = file.readVector2()
-        rotation = file.readSingle()
-        position = file.readVector2()
-      
-        wrapU = GFTextureWrap.init(rawValue: file.readUInt32())!
-        wrapV = GFTextureWrap.init(rawValue: file.readUInt32())!
-        
-        MaxFilter = GFTextureMaxFilter.init(rawValue: file.readUInt32())!
-        MinFilter = GFTextureMinFilter.init(rawValue: file.readUInt32())!
-        
-        minLOD = file.readUInt32()
+        file.seek(by: 0x10)
+        rawBuffer = NSData.init(data: file.readData(ofLength: length))
     }
 }
 
-enum GFTextureMappingType:Int {
-    case UVCoordinateMap = 0
-    case cameraCubEnvMap
-    case cameraSphereEnvMap
-    case ProjectionMap
-    case shadow
-    case shadowBox
+enum GFTextureFormat:Int {
+    case RGB565 = 0x2
+    case RGB8 = 0x3
+    case RGBA8 = 0x4
+    case RGBA4 = 0x16
+    case RGBA5551 = 0x17
+    case LA8 = 0x23
+    case HiLo8 = 0x24
+    case L8 = 0x25
+    case A8 = 0x26
+    case LA4 = 0x27
+    case L4 = 0x28
+    case A4 = 0x29
+    case ETC1 = 0x2a
+    case ETC1A4 = 0x2b
 }
-
-enum GFTextureWrap:Int {
-    case clampToEdge = 0
-    case clampToBorder
-    case `repeat`
-    case mirror
-}
-
-enum GFTextureMaxFilter:Int {
-    case nearest = 0
-    case linear
-}
-
-enum GFTextureMinFilter:Int {
-    case nearest = 0
-    case nearestMinmapNearest
-    case nearestMinmapLinear
-    case linear
-    case linearMinmapNearest
-    case linearMinmapLinear
-}
-
-

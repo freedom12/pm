@@ -20,15 +20,23 @@
 		3931FC6F1EF2D27B00B872A9 /* GFLut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3931FC6E1EF2D27B00B872A9 /* GFLut.swift */; };
 		3931FC731EF3743A00B872A9 /* PICACommandReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3931FC721EF3743A00B872A9 /* PICACommandReader.swift */; };
 		3931FC751EF3A1F100B872A9 /* GFMaterial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3931FC741EF3A1F100B872A9 /* GFMaterial.swift */; };
-		3931FC771EF3B02500B872A9 /* GFTexture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3931FC761EF3B02500B872A9 /* GFTexture.swift */; };
+		3931FC771EF3B02500B872A9 /* GFSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3931FC761EF3B02500B872A9 /* GFSampler.swift */; };
 		39597C341EF0DF4C00DBF3D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39597C331EF0DF4C00DBF3D4 /* AppDelegate.swift */; };
 		39597C361EF0DF4C00DBF3D4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39597C351EF0DF4C00DBF3D4 /* ViewController.swift */; };
 		39597C391EF0DF4C00DBF3D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39597C371EF0DF4C00DBF3D4 /* Main.storyboard */; };
 		39597C3B1EF0DF4C00DBF3D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 39597C3A1EF0DF4C00DBF3D4 /* Assets.xcassets */; };
 		39597C3E1EF0DF4C00DBF3D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39597C3C1EF0DF4C00DBF3D4 /* LaunchScreen.storyboard */; };
+		399B14621EFA3AA500E6037F /* Material.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399B14611EFA3AA500E6037F /* Material.swift */; };
+		399B14641EFA3F8C00E6037F /* Texture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399B14631EFA3F8C00E6037F /* Texture.swift */; };
+		399E84091EFA1DB7006DF112 /* GFTextureContainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399E84081EFA1DB7006DF112 /* GFTextureContainter.swift */; };
+		399E840B1EFA2151006DF112 /* GFTexture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399E840A1EFA2151006DF112 /* GFTexture.swift */; };
 		399FDAA61EF120A2006B93BA /* GFModelContainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399FDAA51EF120A2006B93BA /* GFModelContainter.swift */; };
 		399FDAAB1EF125A6006B93BA /* VectorMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399FDAAA1EF12523006B93BA /* VectorMath.swift */; };
 		399FDAAD1EF12D49006B93BA /* GFContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399FDAAC1EF12D49006B93BA /* GFContainer.swift */; };
+		39B249FE1EF90E9A003C1F77 /* Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B249FD1EF90E9A003C1F77 /* Mesh.swift */; };
+		39B24A001EF90F2F003C1F77 /* SubMesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B249FF1EF90F2F003C1F77 /* SubMesh.swift */; };
+		39CB9BD51EF79FC900280DD5 /* Shader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 39CB9BD41EF79FC900280DD5 /* Shader.metal */; };
+		39CB9BDA1EF7A55600280DD5 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CB9BD91EF7A55600280DD5 /* Model.swift */; };
 		39D5C6281EF77BEE003DE7F1 /* GFSubMesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D5C6271EF77BEE003DE7F1 /* GFSubMesh.swift */; };
 		39D5C62C1EF784CA003DE7F1 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D5C62B1EF784CA003DE7F1 /* Util.swift */; };
 		39D7E8071EF2CC6000F315BA /* GFBone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D7E8061EF2CC6000F315BA /* GFBone.swift */; };
@@ -50,7 +58,7 @@
 		3931FC6E1EF2D27B00B872A9 /* GFLut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFLut.swift; sourceTree = "<group>"; };
 		3931FC721EF3743A00B872A9 /* PICACommandReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PICACommandReader.swift; sourceTree = "<group>"; };
 		3931FC741EF3A1F100B872A9 /* GFMaterial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFMaterial.swift; sourceTree = "<group>"; };
-		3931FC761EF3B02500B872A9 /* GFTexture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFTexture.swift; sourceTree = "<group>"; };
+		3931FC761EF3B02500B872A9 /* GFSampler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFSampler.swift; sourceTree = "<group>"; };
 		39597C301EF0DF4C00DBF3D4 /* pm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		39597C331EF0DF4C00DBF3D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		39597C351EF0DF4C00DBF3D4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -58,9 +66,17 @@
 		39597C3A1EF0DF4C00DBF3D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		39597C3D1EF0DF4C00DBF3D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		39597C3F1EF0DF4C00DBF3D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		399B14611EFA3AA500E6037F /* Material.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Material.swift; sourceTree = "<group>"; };
+		399B14631EFA3F8C00E6037F /* Texture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Texture.swift; sourceTree = "<group>"; };
+		399E84081EFA1DB7006DF112 /* GFTextureContainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFTextureContainter.swift; sourceTree = "<group>"; };
+		399E840A1EFA2151006DF112 /* GFTexture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFTexture.swift; sourceTree = "<group>"; };
 		399FDAA51EF120A2006B93BA /* GFModelContainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFModelContainter.swift; sourceTree = "<group>"; };
 		399FDAAA1EF12523006B93BA /* VectorMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorMath.swift; sourceTree = "<group>"; };
 		399FDAAC1EF12D49006B93BA /* GFContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFContainer.swift; sourceTree = "<group>"; };
+		39B249FD1EF90E9A003C1F77 /* Mesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mesh.swift; sourceTree = "<group>"; };
+		39B249FF1EF90F2F003C1F77 /* SubMesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubMesh.swift; sourceTree = "<group>"; };
+		39CB9BD41EF79FC900280DD5 /* Shader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shader.metal; sourceTree = "<group>"; };
+		39CB9BD91EF7A55600280DD5 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		39D5C6271EF77BEE003DE7F1 /* GFSubMesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFSubMesh.swift; sourceTree = "<group>"; };
 		39D5C62B1EF784CA003DE7F1 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		39D7E8061EF2CC6000F315BA /* GFBone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFBone.swift; sourceTree = "<group>"; };
@@ -116,16 +132,18 @@
 		39597C321EF0DF4C00DBF3D4 /* pm */ = {
 			isa = PBXGroup;
 			children = (
-				399FDAAA1EF12523006B93BA /* VectorMath.swift */,
+				39CB9BD61EF7A51E00280DD5 /* render */,
 				39FC0B8D1EF1155100675191 /* format */,
 				39597C331EF0DF4C00DBF3D4 /* AppDelegate.swift */,
-				39597C351EF0DF4C00DBF3D4 /* ViewController.swift */,
-				39597C371EF0DF4C00DBF3D4 /* Main.storyboard */,
-				39597C3A1EF0DF4C00DBF3D4 /* Assets.xcassets */,
-				39597C3C1EF0DF4C00DBF3D4 /* LaunchScreen.storyboard */,
-				39597C3F1EF0DF4C00DBF3D4 /* Info.plist */,
 				39FC0B8B1EF1107C00675191 /* FileHandle.swift */,
 				39D5C62B1EF784CA003DE7F1 /* Util.swift */,
+				399FDAAA1EF12523006B93BA /* VectorMath.swift */,
+				39597C351EF0DF4C00DBF3D4 /* ViewController.swift */,
+				39597C3C1EF0DF4C00DBF3D4 /* LaunchScreen.storyboard */,
+				39597C371EF0DF4C00DBF3D4 /* Main.storyboard */,
+				39597C3A1EF0DF4C00DBF3D4 /* Assets.xcassets */,
+				39597C3F1EF0DF4C00DBF3D4 /* Info.plist */,
+				39CB9BD41EF79FC900280DD5 /* Shader.metal */,
 			);
 			path = pm;
 			sourceTree = "<group>";
@@ -137,19 +155,33 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		39CB9BD61EF7A51E00280DD5 /* render */ = {
+			isa = PBXGroup;
+			children = (
+				39CB9BD91EF7A55600280DD5 /* Model.swift */,
+				39B249FD1EF90E9A003C1F77 /* Mesh.swift */,
+				39B249FF1EF90F2F003C1F77 /* SubMesh.swift */,
+				399B14611EFA3AA500E6037F /* Material.swift */,
+				399B14631EFA3F8C00E6037F /* Texture.swift */,
+			);
+			path = render;
+			sourceTree = "<group>";
+		};
 		39FC0B8D1EF1155100675191 /* format */ = {
 			isa = PBXGroup;
 			children = (
-				39FC0B8E1EF1158700675191 /* GFPackage.swift */,
-				399FDAA51EF120A2006B93BA /* GFModelContainter.swift */,
-				399FDAAC1EF12D49006B93BA /* GFContainer.swift */,
 				39D7E8061EF2CC6000F315BA /* GFBone.swift */,
+				399FDAAC1EF12D49006B93BA /* GFContainer.swift */,
 				3931FC6E1EF2D27B00B872A9 /* GFLut.swift */,
-				3931FC721EF3743A00B872A9 /* PICACommandReader.swift */,
 				3931FC741EF3A1F100B872A9 /* GFMaterial.swift */,
-				3931FC761EF3B02500B872A9 /* GFTexture.swift */,
 				390C12541EF3D546001D6B8E /* GFMesh.swift */,
+				399FDAA51EF120A2006B93BA /* GFModelContainter.swift */,
+				39FC0B8E1EF1158700675191 /* GFPackage.swift */,
 				39D5C6271EF77BEE003DE7F1 /* GFSubMesh.swift */,
+				3931FC761EF3B02500B872A9 /* GFSampler.swift */,
+				3931FC721EF3743A00B872A9 /* PICACommandReader.swift */,
+				399E84081EFA1DB7006DF112 /* GFTextureContainter.swift */,
+				399E840A1EFA2151006DF112 /* GFTexture.swift */,
 			);
 			path = format;
 			sourceTree = "<group>";
@@ -234,19 +266,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3931FC771EF3B02500B872A9 /* GFTexture.swift in Sources */,
+				3931FC771EF3B02500B872A9 /* GFSampler.swift in Sources */,
 				3931FC6F1EF2D27B00B872A9 /* GFLut.swift in Sources */,
 				39D7E8071EF2CC6000F315BA /* GFBone.swift in Sources */,
 				3931FC731EF3743A00B872A9 /* PICACommandReader.swift in Sources */,
+				39CB9BD51EF79FC900280DD5 /* Shader.metal in Sources */,
 				399FDAAB1EF125A6006B93BA /* VectorMath.swift in Sources */,
+				399E840B1EFA2151006DF112 /* GFTexture.swift in Sources */,
+				39B249FE1EF90E9A003C1F77 /* Mesh.swift in Sources */,
 				399FDAA61EF120A2006B93BA /* GFModelContainter.swift in Sources */,
 				39597C361EF0DF4C00DBF3D4 /* ViewController.swift in Sources */,
 				39D5C62C1EF784CA003DE7F1 /* Util.swift in Sources */,
 				3931FC751EF3A1F100B872A9 /* GFMaterial.swift in Sources */,
+				399B14621EFA3AA500E6037F /* Material.swift in Sources */,
+				399B14641EFA3F8C00E6037F /* Texture.swift in Sources */,
+				39B24A001EF90F2F003C1F77 /* SubMesh.swift in Sources */,
+				39CB9BDA1EF7A55600280DD5 /* Model.swift in Sources */,
 				39D5C6281EF77BEE003DE7F1 /* GFSubMesh.swift in Sources */,
 				39FC0B8C1EF1107C00675191 /* FileHandle.swift in Sources */,
 				390C12551EF3D546001D6B8E /* GFMesh.swift in Sources */,
 				399FDAAD1EF12D49006B93BA /* GFContainer.swift in Sources */,
+				399E84091EFA1DB7006DF112 /* GFTextureContainter.swift in Sources */,
 				39597C341EF0DF4C00DBF3D4 /* AppDelegate.swift in Sources */,
 				39FC0B8F1EF1158700675191 /* GFPackage.swift in Sources */,
 			);

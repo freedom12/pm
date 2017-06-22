@@ -31,6 +31,9 @@ class GFSubMesh {
     var attrs:[PICAAttr] = []
     var fixedAttrs:[PICAFixedAttr] = []
     
+    var indexFormate = false
+    var primitivesCount = 0
+    
     var rawBuffer:NSData = NSData.init()
     var indices:[Int] = []
     
@@ -114,10 +117,7 @@ class GFSubMesh {
             }
         }
         
-        let indexCmdReader = PICACommandReader.init(withDatas: datasList[2])
-        var indexFormate = false
-        var primitivesCount = 0
-        
+        let indexCmdReader = PICACommandReader.init(withDatas: datasList[2]) 
         for cmd in indexCmdReader.cmds {
             let param = cmd.params[0]
             
@@ -127,9 +127,21 @@ class GFSubMesh {
             default: break
             }
         }
-        
+    }
+    
+    public func readVertBuffer() {
         rawBuffer = NSData.init(data: file.readData(ofLength: vertLength))
-        let indexAddr = file.pos
+//        if name == "BodyA" {
+//            for i in 1 ... indexCount {
+//                print(i, file.readSingle(), file.readSingle(), file.readSingle())
+//                file.seek(by: 56-12)
+//            }
+//        } else {
+//            rawBuffer = NSData.init(data: file.readData(ofLength: vertLength))
+//        }
+    }
+    
+    public func readIndexBuffer() {
         for _ in 0 ..< primitivesCount {
             if (indexFormate) {
                 indices.append(file.readUInt16())
@@ -137,8 +149,6 @@ class GFSubMesh {
                 indices.append(file.readUInt8())
             }
         }
-        
-        file.seek(to: indexAddr + indexLength)
     }
 }
 

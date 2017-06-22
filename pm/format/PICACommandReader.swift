@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import Metal
 struct PICACommand {
     var register:PICARegister = .GPUREG_DUMMY
     var params:[Int] = []
@@ -166,7 +166,7 @@ enum PICABlendMode:Int {
 }
 
 struct PICAColorOpt {
-    var fragMode:PICAFragMode = .defaut
+    var fragMode:PICAFragMode = .defaut         //nouse
     var blendMode:PICABlendMode = .logical
     
     init() {
@@ -185,6 +185,16 @@ enum PICABlenOpt:Int {
     case funcReverseSub
     case min
     case max
+    
+    func to() -> MTLBlendOperation {
+        switch self {
+        case .funcAdd: return MTLBlendOperation.add
+        case .funcSub: return MTLBlendOperation.subtract
+        case .funcReverseSub: return  MTLBlendOperation.reverseSubtract
+        case .min: return MTLBlendOperation.min
+        case .max: return MTLBlendOperation.max
+        }
+    }
 }
 
 enum PICABlendFunc:Int {
@@ -203,6 +213,26 @@ enum PICABlendFunc:Int {
     case constAlpha
     case oneMinusConstAlpha
     case srcAlphaSaturate
+    
+    func to() -> MTLBlendFactor {
+        switch self {
+        case .zero: return MTLBlendFactor.zero
+        case .one: return MTLBlendFactor.one
+        case .srcColor: return MTLBlendFactor.sourceColor
+        case .oneMinusSrcColor: return MTLBlendFactor.oneMinusSourceColor
+        case .dstColor: return MTLBlendFactor.destinationColor
+        case .oneMinusDesColor: return MTLBlendFactor.oneMinusDestinationColor
+        case .srcAlpha: return MTLBlendFactor.sourceAlpha
+        case .oneMinusSrcAlpha: return MTLBlendFactor.oneMinusSourceAlpha
+        case .dstAlpha: return MTLBlendFactor.destinationAlpha
+        case .oneMinusDstAlpha: return MTLBlendFactor.oneMinusDestinationAlpha
+        case .constColor: return MTLBlendFactor.source1Color
+        case .oneMinusConstColor: return MTLBlendFactor.oneMinusSource1Color
+        case .constAlpha: return MTLBlendFactor.source1Alpha
+        case .oneMinusConstAlpha: return MTLBlendFactor.oneMinusSource1Alpha
+        case .srcAlphaSaturate: return MTLBlendFactor.sourceAlphaSaturated
+        }
+    }
 }
 
 struct PICABlend {
@@ -288,6 +318,19 @@ enum PICATestFunc:Int {
     case lessEqual
     case greater
     case greaterEqual
+    
+    func to() -> MTLCompareFunction {
+        switch self {
+        case .never: return MTLCompareFunction.never
+        case .always: return MTLCompareFunction.always
+        case .equal: return MTLCompareFunction.equal
+        case .notEqual: return MTLCompareFunction.notEqual
+        case .less: return MTLCompareFunction.less
+        case .lessEqual: return MTLCompareFunction.lessEqual
+        case .greater: return MTLCompareFunction.greater
+        case .greaterEqual: return MTLCompareFunction.greaterEqual
+        }
+    }
 }
 
 struct PICAStencilOpt {
@@ -312,6 +355,19 @@ enum PICAStencilOp:Int {
     case invert
     case incWrap
     case decWrap
+    
+    func to() -> MTLStencilOperation {
+        switch self {
+        case .keep: return MTLStencilOperation.keep
+        case .zero: return MTLStencilOperation.zero
+        case .replace: return MTLStencilOperation.replace
+        case .inc: return MTLStencilOperation.decrementClamp
+        case .dec: return MTLStencilOperation.decrementClamp
+        case .invert: return MTLStencilOperation.invert
+        case .incWrap: return MTLStencilOperation.incrementWrap
+        case .decWrap: return MTLStencilOperation.decrementWrap
+        }
+    }
 }
 
 struct PICADepthColorMask {
@@ -332,6 +388,24 @@ struct PICADepthColorMask {
         bWrite = (int & 0x0400) != 0
         aWrite = (int & 0x0800) != 0
         depthWrite = (int & 0x1000) != 0
+    }
+    
+    func getWriteMask() -> MTLColorWriteMask {
+        var mask:UInt = 0
+        if self.rWrite {
+            mask |= MTLColorWriteMask.red.rawValue
+        }
+        if self.gWrite {
+            mask |= MTLColorWriteMask.green.rawValue
+        }
+        if self.bWrite {
+            mask |= MTLColorWriteMask.blue.rawValue
+        }
+        if self.aWrite {
+            mask |= MTLColorWriteMask.alpha.rawValue
+        }
+        
+        return MTLColorWriteMask.init(rawValue: mask)
     }
 }
 

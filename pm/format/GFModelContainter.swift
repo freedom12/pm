@@ -79,7 +79,7 @@ class GFModelContainter:GFContainer {
         let sectionCount = file.readUInt32()
         file.skipPadding()
         sections = []
-        for _ in 0...(sectionCount-1) {
+        for _ in 0 ..< sectionCount {
             var section = Section()
             section.magic = file.readString(len: 8)
             section.len = file.readUInt32()
@@ -161,7 +161,7 @@ class GFModelContainter:GFContainer {
         }
         return hashNames
     }
-    
+            
     var _name:String = ""
     var name:String {
         get {

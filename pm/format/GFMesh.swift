@@ -59,8 +59,15 @@ class GFMesh {
             let subMesh = GFSubMesh.init(withFile: file, andDatasList: tmpDatasList)
             subMeshes.append(subMesh)
         }
+        
+        for subMesh in subMeshes {
+            subMesh.readVertBuffer()
+            let addr = file.pos
+            subMesh.readIndexBuffer()
+            file.seek(to: addr + subMesh.indexLength)
+        }
     }
-    
+        
     var _name:String = ""
     var name:String {
         get {

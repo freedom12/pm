@@ -67,7 +67,7 @@ class GFMaterial {
     var shaderParam2:Float = 0.0
     var shaderParam3:Float = 0.0
     
-    var textures:[GFTexture] = []
+    var samplers:[GFSampler] = []
     
     var renderPriority = 0
     var renderLayer = 0
@@ -157,10 +157,10 @@ class GFMaterial {
         shaderParam3 = file.readSingle()
         
         let unitCount = file.readUInt32()
-        textures = []
+        samplers = []
         for _ in 0 ..< unitCount {
-            let texture = GFTexture.init(withFile: file)
-            textures.append(texture)
+            let sampler = GFSampler.init(withFile: file)
+            samplers.append(sampler)
         }
         
         file.skipPadding()
@@ -251,4 +251,12 @@ enum PICAFaceCulling:Int {
     case never = 0
     case front
     case back
+    
+    func to() -> MTLCullMode {
+        switch self {
+        case .never: return MTLCullMode.none
+        case .front: return MTLCullMode.back
+        case .back: return MTLCullMode.front
+        }
+    }
 }

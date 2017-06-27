@@ -10,13 +10,17 @@
 using namespace metal;
 
 struct VertexInput {
-    float3 position [[attribute(0)]];
+    float3 translation [[attribute(0)]];
     float2 texcoord0 [[attribute(1)]];
+//    float2 texcoord1 [[attribute(2)]];
+//    float2 texcoord2 [[attribute(3)]];
 };
 
 struct ShaderInOut {
-    float4 position [[position]];
+    float4 translation [[position]];
     float2 texcoord0;
+//    float2 texcoord1;
+//    float2 texcoord2;
 };
 
 
@@ -24,11 +28,15 @@ vertex ShaderInOut basic_vertex(
                                 VertexInput in [[stage_in]],
                                 constant float4x4& projMat [[buffer(1)]],
                                 constant float4x4& mvMat [[buffer(2)]],
+                                constant packed_float3* matetialMatArr [[buffer(3)]],
                                 unsigned int vid [[ vertex_id ]]) {
     ShaderInOut out;
-    out.position = projMat * mvMat * float4(in.position, 1.0);
-    out.texcoord0 = in.texcoord0;
-    out.texcoord0.x *= 2;
+    out.translation = projMat * mvMat * float4(in.translation, 1.0);
+    
+    float3x3 matetialMat = float3x3(matetialMatArr[0], matetialMatArr[1], matetialMatArr[2]);
+    out.texcoord0.xy = (matetialMat * float3(in.texcoord0, 1.0)).xy;
+//    out.texcoord1.xy = float2(in.texcoord1).xy;
+//    out.texcoord2.xy = float2(in.texcoord2).xy;
     return out;
 }
 

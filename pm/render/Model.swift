@@ -13,16 +13,15 @@ class Model {
     var meshes:[Mesh] = []
     var materialDict:Dictionary<String, Material> = [:]
     var device:MTLDevice! = nil
-    init(device _device:MTLDevice, gfModel:GFModelContainter){
+    init(device _device:MTLDevice, gfModel:GFModelContainer){
         device = _device
         for gfMaterial in gfModel.materials {
             let material = Material.init(device: device, gfMaterial: gfMaterial)
             materialDict[material.name] = material
         }
         
-        for gfMesh in gfModel.meshes {
-            let material = materialDict[gfMesh.subMeshes[0].name]!
-            let mesh = Mesh.init(device: device, gfMesh: gfMesh, material: material)
+        for gfMesh in gfModel.meshes {            
+            let mesh = Mesh.init(device: device, gfMesh: gfMesh, to: self)
             meshes.append(mesh)
         }
     }

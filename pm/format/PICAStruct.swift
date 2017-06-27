@@ -219,3 +219,52 @@ struct PICALutInScale {
     }
 }
 
+struct PICATexEnvSrc {
+    var color:[PICATextureCombinerSrc] = Array.init(repeating: PICATextureCombinerSrc.primaryColor, count: 3)
+    var alpha:[PICATextureCombinerSrc] = Array.init(repeating: PICATextureCombinerSrc.primaryColor, count: 3)
+    init() {}
+    init( withInt int:Int) {
+        color[0] = PICATextureCombinerSrc(rawValue: (int >> 0) & 0xf)!
+        color[1] = PICATextureCombinerSrc(rawValue: (int >> 4) & 0xf)!
+        color[2] = PICATextureCombinerSrc(rawValue: (int >> 8) & 0xf)!
+        
+        alpha[0] = PICATextureCombinerSrc(rawValue: (int >> 16) & 0xf)!
+        alpha[1] = PICATextureCombinerSrc(rawValue: (int >> 20) & 0xf)!
+        alpha[2] = PICATextureCombinerSrc(rawValue: (int >> 24) & 0xf)!
+    }
+}
+
+struct PICATexEnvOperand {
+    var color:[PICATextureCombinerColorOp] = Array.init(repeating: PICATextureCombinerColorOp.color, count: 3)
+    var alpha:[PICATextureCombinerAlphaOp] = Array.init(repeating: PICATextureCombinerAlphaOp.alpha, count: 3)
+    init() {}
+    init( withInt int:Int) {
+        color[0] = PICATextureCombinerColorOp(rawValue: (int >> 0) & 0xf)!
+        color[1] = PICATextureCombinerColorOp(rawValue: (int >> 4) & 0xf)!
+        color[2] = PICATextureCombinerColorOp(rawValue: (int >> 8) & 0xf)!
+        
+        alpha[0] = PICATextureCombinerAlphaOp(rawValue: (int >> 16) & 0xf)!
+        alpha[1] = PICATextureCombinerAlphaOp(rawValue: (int >> 20) & 0xf)!
+        alpha[2] = PICATextureCombinerAlphaOp(rawValue: (int >> 24) & 0xf)!
+    }
+}
+
+struct PICATexEnvMode {
+    var color = PICATextureCombinerMode.replace
+    var alpha = PICATextureCombinerMode.replace
+    init() {}
+    init(withInt int:Int) {
+        color = PICATextureCombinerMode(rawValue: (int >> 0) & 0xf)!
+        alpha = PICATextureCombinerMode(rawValue: (int >> 16) & 0xf)!
+    }
+}
+
+struct PICATexEnvScale {
+    var color = PICATextureCombinerScale.one
+    var alpha = PICATextureCombinerScale.one
+    init() {}
+    init(withInt int:Int) {
+        color = PICATextureCombinerScale(rawValue: (int >> 0) & 3)!
+        alpha = PICATextureCombinerScale(rawValue: (int >> 16) & 3)!
+    }
+}

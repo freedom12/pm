@@ -14,6 +14,7 @@ class Material {
     var name = ""
     var textureNames:[String] = []
     var samplerStates:[MTLSamplerState] = []
+    var transforms:[Matrix3] = []
     
     var alphaBendEnable = false
     var colorWriteMask:MTLColorWriteMask = .all
@@ -24,6 +25,7 @@ class Material {
     var alphaSrcFactor:MTLBlendFactor = .one
     var colorSrcFactor:MTLBlendFactor = .one
     
+    var stencilTestEnable = false
     var stencilReadMask:UInt32 = 0
     var stencilWriteMask:UInt32 = 0
     var stencilCompareFunc:MTLCompareFunction = .always
@@ -31,6 +33,7 @@ class Material {
     var depthFailOpt:MTLStencilOperation = .keep
     var depthStencilPassOpt:MTLStencilOperation = .keep
     
+    var depthTestEnable = false
     var depthWriteMask = false
     var depthCompareFunc:MTLCompareFunction = .always
     
@@ -53,6 +56,7 @@ class Material {
             desc.lodMinClamp = Float(sampler.minLOD)
             let samplerState = device.makeSamplerState(descriptor: desc)!
             samplerStates.append(samplerState)
+            transforms.append(sampler.transform)
         }
         
         alphaBendEnable = (gfMaterial.colorOpt.blendMode == .blend)
@@ -64,6 +68,7 @@ class Material {
         alphaSrcFactor = gfMaterial.blend.alphaSrcFunc.to()
         colorSrcFactor = gfMaterial.blend.colorSrcFunc.to()
         
+        stencilTestEnable = gfMaterial.stencilTest.enable
         stencilReadMask = UInt32(gfMaterial.stencilTest.mask)
         stencilWriteMask = UInt32(gfMaterial.stencilTest.bufferMask)
         stencilCompareFunc = gfMaterial.stencilTest.testFunc.to()
@@ -71,6 +76,7 @@ class Material {
         depthFailOpt = gfMaterial.stencilOpt.zFailOpt.to()
         depthStencilPassOpt = gfMaterial.stencilOpt.zPassOpt.to()
         
+        depthTestEnable = gfMaterial.depthColorMask.enable
         depthCompareFunc = gfMaterial.depthColorMask.depthFunc.to()
         depthWriteMask = gfMaterial.depthColorMask.depthWrite
         

@@ -11,15 +11,15 @@ import Metal
 
 class Mesh {
     var subMeshes:[SubMesh] = []
-    var material:Material! = nil
+    var parent:Model! = nil
     
     var device:MTLDevice! = nil
-    init(device _device:MTLDevice, gfMesh:GFMesh, material _material:Material){
+    init(device _device:MTLDevice, gfMesh:GFMesh, to model:Model){
         device = _device
-        material = _material
+        parent = model
         
         for gfSubMesh in gfMesh.subMeshes {
-            let subMesh = SubMesh.init(device: device, gfSubMesh: gfSubMesh, material: material)
+            let subMesh = SubMesh.init(device: device, gfSubMesh: gfSubMesh, to: self)
             subMeshes.append(subMesh)
         }
     }

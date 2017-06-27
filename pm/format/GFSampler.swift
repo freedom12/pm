@@ -18,7 +18,7 @@ class GFSampler {
     var mappingType:GFTextureMappingType = .UVCoordinateMap
     var scale = Vector2.init(0, 0)
     var rotation:Float = 0
-    var position = Vector2.init(0, 0)
+    var translation = Vector2.init(0, 0)
     
     var wrapU:GFTextureWrap = .clampToEdge
     var wrapV:GFTextureWrap = .clampToEdge
@@ -39,7 +39,7 @@ class GFSampler {
         
         scale = file.readVector2()
         rotation = file.readSingle()
-        position = file.readVector2()
+        translation = file.readVector2()
       
         wrapU = GFTextureWrap(rawValue: file.readUInt32())!
         wrapV = GFTextureWrap(rawValue: file.readUInt32())!
@@ -47,7 +47,18 @@ class GFSampler {
         magFilter = GFTextureMagFilter(rawValue: file.readUInt32())!
         minFilter = GFTextureMinFilter(rawValue: file.readUInt32())!
         
-        minLOD = file.readUInt32()
+        minLOD = file.readUInt32()        
+    }
+    
+    var transform:Matrix3 {
+        get {
+            let trans = Vector2.init(-translation.x, -translation.y)
+            var mat = Matrix3.init(translation: trans)
+            mat = Matrix3.init(rotation: rotation) * mat
+            mat = Matrix3.init(scale: scale) * mat
+//            print(translation.y)
+            return mat
+        }
     }
 }
 

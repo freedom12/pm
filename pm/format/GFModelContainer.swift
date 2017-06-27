@@ -1,5 +1,5 @@
 //
-//  GFModel.swift
+//  GFModelContainer.swift
 //  pm
 //
 //  Created by wanghuai on 2017/6/14.
@@ -57,7 +57,7 @@ struct Color {
     }
 }
 
-class GFModelContainter:GFContainer {
+class GFModelContainer:GFContainer {
     var sections:[Section] = []
     var shaderNames:[HashName] = []
     var lutNames:[HashName] = []
@@ -98,7 +98,6 @@ class GFModelContainter:GFContainer {
             default: break
             }
         }
-        
     }
     
     private func readModel() {
@@ -153,6 +152,9 @@ class GFModelContainter:GFContainer {
     private func getHashNames() -> [HashName] {
         let hashNameCount = file.readUInt32()
         var hashNames:[HashName] = []
+        if hashNameCount == 0 {
+            return hashNames
+        }
         for _ in 0...(hashNameCount-1) {
             var hashName = HashName()
             hashName.hash = file.readUInt32()

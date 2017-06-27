@@ -52,4 +52,23 @@ enum GFTextureFormat:Int {
     case A4 = 0x29
     case ETC1 = 0x2a
     case ETC1A4 = 0x2b
+    
+    func to() -> PICATextureFormate {
+        switch self {
+        case .RGB565: return PICATextureFormate.RGB565
+        case .RGB8: return PICATextureFormate.RGB8
+        case .RGBA8: return PICATextureFormate.RGBA8
+        case .RGBA4: return PICATextureFormate.RGBA4
+        case .RGBA5551: return PICATextureFormate.RGBA5551
+        case .LA8: return PICATextureFormate.LA8
+        case .HiLo8: return PICATextureFormate.HiLo8
+        case .L8: return PICATextureFormate.L8
+        case .A8: return PICATextureFormate.A8
+        case .LA4: return PICATextureFormate.LA4
+        case .L4: return PICATextureFormate.L4
+        case .A4: return PICATextureFormate.A4
+        case .ETC1: return PICATextureFormate.ETC1
+        case .ETC1A4: return PICATextureFormate.ETC1A4
+        }
+    }
 }

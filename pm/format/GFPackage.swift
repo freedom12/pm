@@ -14,33 +14,33 @@ struct Entry {
 }
 
 class GFPackage {
-//    var file:FileHandle
-//    var magic:String = ""
-//    var entries:[Entry] = []
-//    var containters:[GFContainer] = []
-    var model:GFModelContainter? = nil
+    var model:GFModelContainer?
+    var modelLow:GFModelContainer?
     var textures:[GFTexture] = []
-    
+    var anims:[GFAnim] = []
+    var fragShaders:[GFFragShader] = []
     
     let GFModelConstant:Int = 0x15122117
     let GFTextureConstant:Int = 0x15041213
     let GFMotionConstant:Int = 0x00060000
     let BCHConstant:Int = 0x00484342
+    let GFFragShaderConstant:Int = 217936
     
     init() {
         model = nil
         textures = []
+        fragShaders = []
     }
     
     public func merg(withFile file:FileHandle) {
-        file.seek(toFileOffset: 0)
+        file.seek(to: 0)
         
-        let magic = file.readString(len: 2)
+        _ = file.readString(len: 2)//magic
         let entryCount = file.readUInt16()
         var entries:[Entry] = []
-        let pos = Int(file.offsetInFile)
+        let pos = file.pos
         for i in 0...(entryCount-1) {
-            file.seek(toFileOffset: UInt64(pos + i * 4))
+            file.seek(to: (pos + i * 4))
             let startAddr = file.readUInt32()
             let endAddr = file.readUInt32()
             
@@ -54,18 +54,58 @@ class GFPackage {
             file.seek(to: entries[i].addr)
             let magicNum = file.readUInt32()
             file.seek(to: entries[i].addr)
+            
             switch magicNum {
             case GFModelConstant:
                 if i == 0 {
-                    model = GFModelContainter.init(withFile: file)
+                    model = GFModelContainer.init(withFile: file)
+                } else if i == 1 {
+                    modelLow = GFModelContainer.init(withFile: file)
                 }
+            case GFFragShaderConstant:
+                _ = file.readString(len: 2)//magic
+                let fragShaderEntryCount = file.readUInt16()
+                var fragShaderEntries:[Entry] = []
+                let pos = file.pos
+                for i in 0...(fragShaderEntryCount-1) {
+                    file.seek(to: (pos + i * 4))
+                    let startAddr = file.readUInt32()
+                    let endAddr = file.readUInt32()
+                    
+                    var entry = Entry()
+                    entry.addr = pos - 4 + startAddr
+                    entry.len = endAddr - startAddr
+                    fragShaderEntries.append(entry)
+                }
+                for j in 0 ..< fragShaderEntryCount {
+                    file.seek(to: fragShaderEntries[j].addr)
+                    let containter = GFFragShaderContainer.init(withFile: file)
+                    for fragShader in containter.fragShaders {
+                        fragShaders.append(fragShader)
+                    }
+                }
+                
             case GFTextureConstant:
-                let containter = GFTextureContainter.init(withFile: file)
-                for texture in containter.textures {
+                let container = GFTextureContainer.init(withFile: file)
+                for texture in container.textures {
                     textures.append(texture)
                 }
+            case GFMotionConstant:
+                let container = GFAnimContainer.init(withFile: file)
+                var anim = GFAnim()
+                anim.skeletonAnim = container.skeletonAnim
+                anim.materialAnim = container.materialAnim
+                anim.visibilityAnim = container.visibilityAnim
+                anims.append(anim)
             default: break
             }
         }
     }
+}
+
+struct GFAnim {
+    var skeletonAnim:GFSkeletonAnim? = nil
+    var materialAnim:GFMaterialAnim? = nil
+    var visibilityAnim:GFVisibilityAnim? = nil
+    var name = ""
 }

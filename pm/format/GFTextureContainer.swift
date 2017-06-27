@@ -1,5 +1,5 @@
 //
-//  GFTextureContainter.swift
+//  GFTextureContainer.swift
 //  pm
 //
 //  Created by wanghuai on 2017/6/21.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GFTextureContainter:GFContainer {
+class GFTextureContainer:GFContainer {
     var sections:[Section] = []
     var textures:[GFTexture] = []
     override init( withFile _file:FileHandle ) {

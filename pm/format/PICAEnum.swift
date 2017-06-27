@@ -194,3 +194,76 @@ enum PICAFaceCulling:Int {
         }
     }
 }
+
+enum PICATextureCombinerSrc:Int {
+    case primaryColor = 0
+    case fragPrimaryColor
+    case fragSecondaryColor
+    case texture0
+    case texture1
+    case texture2
+    case texture3
+    case previousBuffer = 13
+    case constant = 14
+    case pervious = 15
+}
+
+enum PICATextureCombinerColorOp:Int {
+    case color = 0
+    case oneMinusColor
+    case alpha
+    case oneMinusAlpha
+    case red
+    case oneMinusRed
+    case green = 8
+    case oneMinusGreen = 9
+    case blue = 12
+    case oneMinusBlue = 13
+}
+
+enum PICATextureCombinerAlphaOp:Int {
+    case alpha = 0
+    case oneMinusAlpha
+    case red
+    case oneMinusRed
+    case green
+    case oneMinusGreen
+    case blue
+    case oneMinusBlue
+}
+
+enum PICATextureCombinerMode:Int {
+    case replace = 0
+    case modulate
+    case add
+    case addSigned
+    case interpolate
+    case subtract
+    case dotProduct3RGB
+    case dotProduct3RGBA
+    case multAdd
+    case addMult
+}
+
+enum PICATextureCombinerScale:Int {
+    case one = 0
+    case two
+    case four
+}
+
+enum  PICATextureFormate:Int {
+    case RGBA8 = 0
+    case RGB8
+    case RGBA5551
+    case RGB565
+    case RGBA4
+    case LA8
+    case HiLo8
+    case L8
+    case A8
+    case LA4
+    case L4
+    case A4
+    case ETC1
+    case ETC1A4
+}

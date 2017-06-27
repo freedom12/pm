@@ -11,6 +11,7 @@ import Metal
 
 class SubMesh {
     var device:MTLDevice! = nil
+    var parent:Mesh! = nil
     var material:Material! = nil
     
     var vertBuffer:MTLBuffer! = nil
@@ -21,9 +22,11 @@ class SubMesh {
     var indexCount = 0
     var indexType:MTLIndexType = .uint16
     
-    init(device _device:MTLDevice, gfSubMesh: GFSubMesh, material _material:Material) {
+    init(device _device:MTLDevice, gfSubMesh: GFSubMesh, to mesh:Mesh) {
         device = _device
-        material = _material
+        parent = mesh
+        
+        material = parent.parent.materialDict[gfSubMesh.name]!
         
         let vertDesc = MTLVertexDescriptor.init()
         
@@ -42,6 +45,14 @@ class SubMesh {
                 vertDesc.attributes[1].format = .float2
                 vertDesc.attributes[1].offset = offset
                 vertDesc.attributes[1].bufferIndex = bufferIndex
+            } else if attr.name == .texCoord1 {
+                vertDesc.attributes[2].format = .float2
+                vertDesc.attributes[2].offset = offset
+                vertDesc.attributes[2].bufferIndex = bufferIndex
+            } else if attr.name == .texCoord2 {
+                vertDesc.attributes[3].format = .float2
+                vertDesc.attributes[3].offset = offset
+                vertDesc.attributes[3].bufferIndex = bufferIndex
             }
             
             if (type == .byte && num == 1) {
@@ -102,6 +113,7 @@ class SubMesh {
         vertDesc.layouts[0].stepFunction = .perVertex
         
         vertBuffer = device.makeBuffer(bytes: gfSubMesh.rawBuffer.bytes, length: gfSubMesh.rawBuffer.length, options: [])
+        vertBuffer.label = gfSubMesh.name
         
         var tmp:[UInt16] = []
         for index in gfSubMesh.indices {
@@ -112,8 +124,8 @@ class SubMesh {
         indexCount = tmp.count
         
         let defaultLibrary = device.makeDefaultLibrary()
-        let fragProgram = defaultLibrary?.makeFunction(name: "basic_fragment")
         let vertProgram = defaultLibrary?.makeFunction(name: "basic_vertex")
+        let fragProgram = defaultLibrary?.makeFunction(name: "basic_fragment")
         
         let colorDesc = MTLRenderPipelineColorAttachmentDescriptor.init()
         colorDesc.isBlendingEnabled = material.alphaBendEnable
@@ -131,8 +143,8 @@ class SubMesh {
         renderPiplineDesc.fragmentFunction = fragProgram
         renderPiplineDesc.vertexDescriptor = vertDesc
         renderPiplineDesc.colorAttachments[0] = colorDesc
-        renderPiplineDesc.colorAttachments[0].pixelFormat = .bgra8Unorm
-        renderPiplineDesc.depthAttachmentPixelFormat = .depth32Float
+        renderPiplineDesc.depthAttachmentPixelFormat = .depth32Float_stencil8
+        renderPiplineDesc.stencilAttachmentPixelFormat = .depth32Float_stencil8
         
         let stencilDesc = MTLStencilDescriptor.init()
         stencilDesc.readMask = material.stencilReadMask
@@ -143,10 +155,16 @@ class SubMesh {
         stencilDesc.depthStencilPassOperation = material.depthStencilPassOpt
         
         let depthStencilDesc = MTLDepthStencilDescriptor.init()
-        depthStencilDesc.isDepthWriteEnabled = material.depthWriteMask
-        depthStencilDesc.depthCompareFunction = material.depthCompareFunc
-//        depthStencilDesc.frontFaceStencil = stencilDesc
-//        depthStencilDesc.backFaceStencil = stencilDesc
+        
+        if material.depthTestEnable {
+            depthStencilDesc.isDepthWriteEnabled = material.depthWriteMask
+            depthStencilDesc.depthCompareFunction = material.depthCompareFunc
+        }
+        
+        if material.stencilTestEnable {
+            depthStencilDesc.frontFaceStencil = stencilDesc
+            depthStencilDesc.backFaceStencil = stencilDesc
+        }
         
         do {
             try renderPipelineState = device.makeRenderPipelineState(descriptor: renderPiplineDesc)

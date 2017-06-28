@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import UIKit
+//import UIKit
 
 class GFMaterial {
     var file:FileHandle

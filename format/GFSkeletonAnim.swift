@@ -26,7 +26,6 @@ class GFSkeletonAnim {
         }
         
         file.seek(to: pos + boneNameLen)
-        print(file.pos)
         for name in boneNames {
             let transform = GFSkeletonBoneTransform.init(withFile: file, frameCount: frameCount)
             transform.name = name

@@ -9,17 +9,14 @@
 import Foundation
 import  Metal
 class Texture {
-    var device:MTLDevice! = nil
-    
     var name = ""
     var width = 0
     var height = 0
     
     var texture:MTLTexture! = nil
     var data:NSData = NSData.init()
-    init(device _device:MTLDevice, gfTexture:GFTexture){
-        device = _device
-        
+    init(gfTexture:GFTexture){
+        let device = RenderEngine.sharedInstance.device!
         name = gfTexture.name
         width = gfTexture.width
         height = gfTexture.height

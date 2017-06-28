@@ -7,8 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		390875701F03595B000FAAFB /* FileLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3908756F1F03595B000FAAFB /* FileLoader.swift */; };
 		390C12551EF3D546001D6B8E /* GFMesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C12541EF3D546001D6B8E /* GFMesh.swift */; };
 		391BAB131F01017C00E90798 /* GFAnimContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391BAB121F01017C00E90798 /* GFAnimContainer.swift */; };
+		39275DCD1F02711E00208F69 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39275DCC1F02711E00208F69 /* AppDelegate.swift */; };
+		39275DCF1F02711E00208F69 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39275DCE1F02711E00208F69 /* ViewController.swift */; };
+		39275DD11F02711E00208F69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 39275DD01F02711E00208F69 /* Assets.xcassets */; };
+		39275DD41F02711E00208F69 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39275DD21F02711E00208F69 /* Main.storyboard */; };
 		3931FC6F1EF2D27B00B872A9 /* GFLut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3931FC6E1EF2D27B00B872A9 /* GFLut.swift */; };
 		3931FC731EF3743A00B872A9 /* PICACommandReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3931FC721EF3743A00B872A9 /* PICACommandReader.swift */; };
 		3931FC751EF3A1F100B872A9 /* GFMaterial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3931FC741EF3A1F100B872A9 /* GFMaterial.swift */; };
@@ -18,7 +23,40 @@
 		39597C391EF0DF4C00DBF3D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39597C371EF0DF4C00DBF3D4 /* Main.storyboard */; };
 		39597C3B1EF0DF4C00DBF3D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 39597C3A1EF0DF4C00DBF3D4 /* Assets.xcassets */; };
 		39597C3E1EF0DF4C00DBF3D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39597C3C1EF0DF4C00DBF3D4 /* LaunchScreen.storyboard */; };
+		3975E0D91F02755800503A63 /* FileHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FC0B8B1EF1107C00675191 /* FileHandle.swift */; };
+		3975E0DA1F02755800503A63 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D5C62B1EF784CA003DE7F1 /* Util.swift */; };
+		3975E0DB1F02755800503A63 /* VectorMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399FDAAA1EF12523006B93BA /* VectorMath.swift */; };
+		3975E0DC1F02755800503A63 /* GFBone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D7E8061EF2CC6000F315BA /* GFBone.swift */; };
+		3975E0DD1F02755800503A63 /* GFContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399FDAAC1EF12D49006B93BA /* GFContainer.swift */; };
+		3975E0DE1F02755800503A63 /* GFLut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3931FC6E1EF2D27B00B872A9 /* GFLut.swift */; };
+		3975E0DF1F02755800503A63 /* GFMaterial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3931FC741EF3A1F100B872A9 /* GFMaterial.swift */; };
+		3975E0E01F02755800503A63 /* GFMesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C12541EF3D546001D6B8E /* GFMesh.swift */; };
+		3975E0E11F02755800503A63 /* GFModelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399FDAA51EF120A2006B93BA /* GFModelContainer.swift */; };
+		3975E0E21F02755800503A63 /* GFPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FC0B8E1EF1158700675191 /* GFPackage.swift */; };
+		3975E0E31F02755800503A63 /* GFSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3931FC761EF3B02500B872A9 /* GFSampler.swift */; };
+		3975E0E41F02755800503A63 /* GFSubMesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D5C6271EF77BEE003DE7F1 /* GFSubMesh.swift */; };
+		3975E0E51F02755800503A63 /* GFTexture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399E840A1EFA2151006DF112 /* GFTexture.swift */; };
+		3975E0E61F02755800503A63 /* GFTextureContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399E84081EFA1DB7006DF112 /* GFTextureContainer.swift */; };
+		3975E0E71F02755800503A63 /* PICACommandReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3931FC721EF3743A00B872A9 /* PICACommandReader.swift */; };
+		3975E0E81F02755800503A63 /* PICAEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E0937C1EFBA241009E1D29 /* PICAEnum.swift */; };
+		3975E0E91F02755800503A63 /* PICAStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B7D8221EFB754D002BA65E /* PICAStruct.swift */; };
+		3975E0EA1F02755800503A63 /* GFFragShaderContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F6DC5E1EFBC89C00F68FA4 /* GFFragShaderContainer.swift */; };
+		3975E0EB1F02755800503A63 /* GFFragShader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39905F761EFBD38B000ECEC9 /* GFFragShader.swift */; };
+		3975E0EC1F02755800503A63 /* GFAnimContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391BAB121F01017C00E90798 /* GFAnimContainer.swift */; };
+		3975E0ED1F02755800503A63 /* GFSkeletonAnim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3975E4121F0108E800318E4A /* GFSkeletonAnim.swift */; };
+		3975E0EE1F02755800503A63 /* GFMaterialAnim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D61C121F011A610080352F /* GFMaterialAnim.swift */; };
+		3975E0EF1F02755800503A63 /* GFVisibilityAnim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D61C141F011ED90080352F /* GFVisibilityAnim.swift */; };
+		3975E0F01F02755800503A63 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CB9BD91EF7A55600280DD5 /* Model.swift */; };
+		3975E0F11F02755800503A63 /* Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B249FD1EF90E9A003C1F77 /* Mesh.swift */; };
+		3975E0F21F02755800503A63 /* SubMesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B249FF1EF90F2F003C1F77 /* SubMesh.swift */; };
+		3975E0F31F02755800503A63 /* Material.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399B14611EFA3AA500E6037F /* Material.swift */; };
+		3975E0F41F02755800503A63 /* Texture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399B14631EFA3F8C00E6037F /* Texture.swift */; };
+		3975E0F51F02756400503A63 /* res.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 39B7D8201EFB7276002BA65E /* res.bundle */; };
+		3975E0F61F02A4DD00503A63 /* Shader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 39CB9BD41EF79FC900280DD5 /* Shader.metal */; };
 		3975E4131F0108E800318E4A /* GFSkeletonAnim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3975E4121F0108E800318E4A /* GFSkeletonAnim.swift */; };
+		398C23741F035E9B00512D6A /* RenderEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398D07CF1F034D75005F19E4 /* RenderEngine.swift */; };
+		398C23751F035E9B00512D6A /* FileLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3908756F1F03595B000FAAFB /* FileLoader.swift */; };
+		398D07D01F034D75005F19E4 /* RenderEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398D07CF1F034D75005F19E4 /* RenderEngine.swift */; };
 		39905F771EFBD38B000ECEC9 /* GFFragShader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39905F761EFBD38B000ECEC9 /* GFFragShader.swift */; };
 		399B14621EFA3AA500E6037F /* Material.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399B14611EFA3AA500E6037F /* Material.swift */; };
 		399B14641EFA3F8C00E6037F /* Texture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399B14631EFA3F8C00E6037F /* Texture.swift */; };
@@ -45,13 +83,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3908756F1F03595B000FAAFB /* FileLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLoader.swift; sourceTree = "<group>"; };
 		390C12541EF3D546001D6B8E /* GFMesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFMesh.swift; sourceTree = "<group>"; };
 		391BAB121F01017C00E90798 /* GFAnimContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFAnimContainer.swift; sourceTree = "<group>"; };
+		39275DCA1F02711E00208F69 /* pm_mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pm_mac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		39275DCC1F02711E00208F69 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		39275DCE1F02711E00208F69 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		39275DD01F02711E00208F69 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		39275DD31F02711E00208F69 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		39275DD51F02711E00208F69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		39275DD61F02711E00208F69 /* pm_mac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = pm_mac.entitlements; sourceTree = "<group>"; };
 		3931FC6E1EF2D27B00B872A9 /* GFLut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFLut.swift; sourceTree = "<group>"; };
 		3931FC721EF3743A00B872A9 /* PICACommandReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PICACommandReader.swift; sourceTree = "<group>"; };
 		3931FC741EF3A1F100B872A9 /* GFMaterial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFMaterial.swift; sourceTree = "<group>"; };
 		3931FC761EF3B02500B872A9 /* GFSampler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFSampler.swift; sourceTree = "<group>"; };
-		39597C301EF0DF4C00DBF3D4 /* pm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pm.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		39597C301EF0DF4C00DBF3D4 /* pm_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pm_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		39597C331EF0DF4C00DBF3D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		39597C351EF0DF4C00DBF3D4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		39597C381EF0DF4C00DBF3D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -59,6 +105,7 @@
 		39597C3D1EF0DF4C00DBF3D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		39597C3F1EF0DF4C00DBF3D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3975E4121F0108E800318E4A /* GFSkeletonAnim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFSkeletonAnim.swift; sourceTree = "<group>"; };
+		398D07CF1F034D75005F19E4 /* RenderEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderEngine.swift; sourceTree = "<group>"; };
 		39905F761EFBD38B000ECEC9 /* GFFragShader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFragShader.swift; sourceTree = "<group>"; };
 		399B14611EFA3AA500E6037F /* Material.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Material.swift; sourceTree = "<group>"; };
 		399B14631EFA3F8C00E6037F /* Texture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Texture.swift; sourceTree = "<group>"; };
@@ -85,6 +132,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		39275DC71F02711E00208F69 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		39597C2D1EF0DF4C00DBF3D4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -95,11 +149,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		39275DCB1F02711E00208F69 /* pm_mac */ = {
+			isa = PBXGroup;
+			children = (
+				39275DCC1F02711E00208F69 /* AppDelegate.swift */,
+				39275DCE1F02711E00208F69 /* ViewController.swift */,
+				39275DD01F02711E00208F69 /* Assets.xcassets */,
+				39275DD21F02711E00208F69 /* Main.storyboard */,
+				39275DD51F02711E00208F69 /* Info.plist */,
+				39275DD61F02711E00208F69 /* pm_mac.entitlements */,
+			);
+			path = pm_mac;
+			sourceTree = "<group>";
+		};
 		39597C271EF0DF4C00DBF3D4 = {
 			isa = PBXGroup;
 			children = (
+				39DD08621F02728E00478DCF /* pm */,
 				39B7D8201EFB7276002BA65E /* res.bundle */,
-				39597C321EF0DF4C00DBF3D4 /* pm */,
+				39597C321EF0DF4C00DBF3D4 /* pm_ios */,
+				39275DCB1F02711E00208F69 /* pm_mac */,
 				39597C311EF0DF4C00DBF3D4 /* Products */,
 				399FDAA71EF12222006B93BA /* Frameworks */,
 			);
@@ -108,28 +177,23 @@
 		39597C311EF0DF4C00DBF3D4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				39597C301EF0DF4C00DBF3D4 /* pm.app */,
+				39597C301EF0DF4C00DBF3D4 /* pm_ios.app */,
+				39275DCA1F02711E00208F69 /* pm_mac.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		39597C321EF0DF4C00DBF3D4 /* pm */ = {
+		39597C321EF0DF4C00DBF3D4 /* pm_ios */ = {
 			isa = PBXGroup;
 			children = (
-				39CB9BD61EF7A51E00280DD5 /* render */,
-				39FC0B8D1EF1155100675191 /* format */,
 				39597C331EF0DF4C00DBF3D4 /* AppDelegate.swift */,
-				39FC0B8B1EF1107C00675191 /* FileHandle.swift */,
-				39D5C62B1EF784CA003DE7F1 /* Util.swift */,
-				399FDAAA1EF12523006B93BA /* VectorMath.swift */,
 				39597C351EF0DF4C00DBF3D4 /* ViewController.swift */,
 				39597C3C1EF0DF4C00DBF3D4 /* LaunchScreen.storyboard */,
 				39597C371EF0DF4C00DBF3D4 /* Main.storyboard */,
 				39597C3A1EF0DF4C00DBF3D4 /* Assets.xcassets */,
 				39597C3F1EF0DF4C00DBF3D4 /* Info.plist */,
-				39CB9BD41EF79FC900280DD5 /* Shader.metal */,
 			);
-			path = pm;
+			path = pm_ios;
 			sourceTree = "<group>";
 		};
 		399FDAA71EF12222006B93BA /* Frameworks */ = {
@@ -142,6 +206,7 @@
 		39CB9BD61EF7A51E00280DD5 /* render */ = {
 			isa = PBXGroup;
 			children = (
+				398D07CF1F034D75005F19E4 /* RenderEngine.swift */,
 				39CB9BD91EF7A55600280DD5 /* Model.swift */,
 				39B249FD1EF90E9A003C1F77 /* Mesh.swift */,
 				39B249FF1EF90F2F003C1F77 /* SubMesh.swift */,
@@ -149,6 +214,20 @@
 				399B14631EFA3F8C00E6037F /* Texture.swift */,
 			);
 			path = render;
+			sourceTree = "<group>";
+		};
+		39DD08621F02728E00478DCF /* pm */ = {
+			isa = PBXGroup;
+			children = (
+				39CB9BD41EF79FC900280DD5 /* Shader.metal */,
+				39FC0B8B1EF1107C00675191 /* FileHandle.swift */,
+				39D5C62B1EF784CA003DE7F1 /* Util.swift */,
+				399FDAAA1EF12523006B93BA /* VectorMath.swift */,
+				39FC0B8D1EF1155100675191 /* format */,
+				39CB9BD61EF7A51E00280DD5 /* render */,
+				3908756F1F03595B000FAAFB /* FileLoader.swift */,
+			);
+			name = pm;
 			sourceTree = "<group>";
 		};
 		39FC0B8D1EF1155100675191 /* format */ = {
@@ -181,9 +260,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		39597C2F1EF0DF4C00DBF3D4 /* pm */ = {
+		39275DC91F02711E00208F69 /* pm_mac */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 39597C421EF0DF4C00DBF3D4 /* Build configuration list for PBXNativeTarget "pm" */;
+			buildConfigurationList = 39275DD91F02711E00208F69 /* Build configuration list for PBXNativeTarget "pm_mac" */;
+			buildPhases = (
+				39275DC61F02711E00208F69 /* Sources */,
+				39275DC71F02711E00208F69 /* Frameworks */,
+				39275DC81F02711E00208F69 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = pm_mac;
+			productName = pm_mac;
+			productReference = 39275DCA1F02711E00208F69 /* pm_mac.app */;
+			productType = "com.apple.product-type.application";
+		};
+		39597C2F1EF0DF4C00DBF3D4 /* pm_ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 39597C421EF0DF4C00DBF3D4 /* Build configuration list for PBXNativeTarget "pm_ios" */;
 			buildPhases = (
 				39597C2C1EF0DF4C00DBF3D4 /* Sources */,
 				39597C2D1EF0DF4C00DBF3D4 /* Frameworks */,
@@ -193,9 +289,9 @@
 			);
 			dependencies = (
 			);
-			name = pm;
+			name = pm_ios;
 			productName = pm;
-			productReference = 39597C301EF0DF4C00DBF3D4 /* pm.app */;
+			productReference = 39597C301EF0DF4C00DBF3D4 /* pm_ios.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -208,6 +304,9 @@
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = wanghuai;
 				TargetAttributes = {
+					39275DC91F02711E00208F69 = {
+						CreatedOnToolsVersion = 9.0;
+					};
 					39597C2F1EF0DF4C00DBF3D4 = {
 						CreatedOnToolsVersion = 9.0;
 					};
@@ -226,12 +325,23 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				39597C2F1EF0DF4C00DBF3D4 /* pm */,
+				39597C2F1EF0DF4C00DBF3D4 /* pm_ios */,
+				39275DC91F02711E00208F69 /* pm_mac */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		39275DC81F02711E00208F69 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3975E0F51F02756400503A63 /* res.bundle in Resources */,
+				39275DD11F02711E00208F69 /* Assets.xcassets in Resources */,
+				39275DD41F02711E00208F69 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		39597C2E1EF0DF4C00DBF3D4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -246,6 +356,46 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		39275DC61F02711E00208F69 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				398C23741F035E9B00512D6A /* RenderEngine.swift in Sources */,
+				398C23751F035E9B00512D6A /* FileLoader.swift in Sources */,
+				3975E0F61F02A4DD00503A63 /* Shader.metal in Sources */,
+				3975E0D91F02755800503A63 /* FileHandle.swift in Sources */,
+				3975E0DA1F02755800503A63 /* Util.swift in Sources */,
+				3975E0DB1F02755800503A63 /* VectorMath.swift in Sources */,
+				3975E0DC1F02755800503A63 /* GFBone.swift in Sources */,
+				3975E0DD1F02755800503A63 /* GFContainer.swift in Sources */,
+				3975E0DE1F02755800503A63 /* GFLut.swift in Sources */,
+				3975E0DF1F02755800503A63 /* GFMaterial.swift in Sources */,
+				3975E0E01F02755800503A63 /* GFMesh.swift in Sources */,
+				3975E0E11F02755800503A63 /* GFModelContainer.swift in Sources */,
+				3975E0E21F02755800503A63 /* GFPackage.swift in Sources */,
+				3975E0E31F02755800503A63 /* GFSampler.swift in Sources */,
+				3975E0E41F02755800503A63 /* GFSubMesh.swift in Sources */,
+				3975E0E51F02755800503A63 /* GFTexture.swift in Sources */,
+				3975E0E61F02755800503A63 /* GFTextureContainer.swift in Sources */,
+				3975E0E71F02755800503A63 /* PICACommandReader.swift in Sources */,
+				3975E0E81F02755800503A63 /* PICAEnum.swift in Sources */,
+				3975E0E91F02755800503A63 /* PICAStruct.swift in Sources */,
+				3975E0EA1F02755800503A63 /* GFFragShaderContainer.swift in Sources */,
+				3975E0EB1F02755800503A63 /* GFFragShader.swift in Sources */,
+				3975E0EC1F02755800503A63 /* GFAnimContainer.swift in Sources */,
+				3975E0ED1F02755800503A63 /* GFSkeletonAnim.swift in Sources */,
+				3975E0EE1F02755800503A63 /* GFMaterialAnim.swift in Sources */,
+				3975E0EF1F02755800503A63 /* GFVisibilityAnim.swift in Sources */,
+				3975E0F01F02755800503A63 /* Model.swift in Sources */,
+				3975E0F11F02755800503A63 /* Mesh.swift in Sources */,
+				3975E0F21F02755800503A63 /* SubMesh.swift in Sources */,
+				3975E0F31F02755800503A63 /* Material.swift in Sources */,
+				3975E0F41F02755800503A63 /* Texture.swift in Sources */,
+				39275DCF1F02711E00208F69 /* ViewController.swift in Sources */,
+				39275DCD1F02711E00208F69 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		39597C2C1EF0DF4C00DBF3D4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -253,6 +403,8 @@
 				3931FC771EF3B02500B872A9 /* GFSampler.swift in Sources */,
 				3931FC6F1EF2D27B00B872A9 /* GFLut.swift in Sources */,
 				39D7E8071EF2CC6000F315BA /* GFBone.swift in Sources */,
+				390875701F03595B000FAAFB /* FileLoader.swift in Sources */,
+				398D07D01F034D75005F19E4 /* RenderEngine.swift in Sources */,
 				3931FC731EF3743A00B872A9 /* PICACommandReader.swift in Sources */,
 				39CB9BD51EF79FC900280DD5 /* Shader.metal in Sources */,
 				399FDAAB1EF125A6006B93BA /* VectorMath.swift in Sources */,
@@ -287,6 +439,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		39275DD21F02711E00208F69 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				39275DD31F02711E00208F69 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
 		39597C371EF0DF4C00DBF3D4 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -306,6 +466,42 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		39275DD71F02711E00208F69 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = pm_mac/pm_mac.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 6577BW8WA6;
+				INFOPLIST_FILE = pm_mac/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wanghuai.pm-mac";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		39275DD81F02711E00208F69 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = pm_mac/pm_mac.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 6577BW8WA6;
+				INFOPLIST_FILE = pm_mac/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wanghuai.pm-mac";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
 		39597C401EF0DF4C00DBF3D4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -418,7 +614,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 6577BW8WA6;
-				INFOPLIST_FILE = pm/Info.plist;
+				INFOPLIST_FILE = pm_ios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wanghuai.pm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -432,7 +628,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 6577BW8WA6;
-				INFOPLIST_FILE = pm/Info.plist;
+				INFOPLIST_FILE = pm_ios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wanghuai.pm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -444,6 +640,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		39275DD91F02711E00208F69 /* Build configuration list for PBXNativeTarget "pm_mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				39275DD71F02711E00208F69 /* Debug */,
+				39275DD81F02711E00208F69 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		39597C2B1EF0DF4C00DBF3D4 /* Build configuration list for PBXProject "pm" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -453,7 +658,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		39597C421EF0DF4C00DBF3D4 /* Build configuration list for PBXNativeTarget "pm" */ = {
+		39597C421EF0DF4C00DBF3D4 /* Build configuration list for PBXNativeTarget "pm_ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				39597C431EF0DF4C00DBF3D4 /* Debug */,

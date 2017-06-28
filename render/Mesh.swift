@@ -10,16 +10,15 @@ import Foundation
 import Metal
 
 class Mesh {
+    var name = ""
     var subMeshes:[SubMesh] = []
-    var parent:Model! = nil
+    unowned var parent:Model
     
-    var device:MTLDevice! = nil
-    init(device _device:MTLDevice, gfMesh:GFMesh, to model:Model){
-        device = _device
+    init(gfMesh:GFMesh, to model:Model){
         parent = model
-        
+        name = gfMesh.name
         for gfSubMesh in gfMesh.subMeshes {
-            let subMesh = SubMesh.init(device: device, gfSubMesh: gfSubMesh, to: self)
+            let subMesh = SubMesh.init(gfSubMesh: gfSubMesh, to: self)
             subMeshes.append(subMesh)
         }
     }

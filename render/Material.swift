@@ -10,7 +10,6 @@ import Foundation
 import Metal
 
 class Material {
-    var device:MTLDevice! = nil
     var name = ""
     var textureNames:[String] = []
     var samplerStates:[MTLSamplerState] = []
@@ -39,8 +38,8 @@ class Material {
     
     var cullMode:MTLCullMode = .none
     var stencilReference:UInt32 = 0
-    init(device _device:MTLDevice, gfMaterial:GFMaterial){
-        device = _device
+    init(gfMaterial:GFMaterial){
+        let device = RenderEngine.sharedInstance.device!
         
         name = gfMaterial.name
         

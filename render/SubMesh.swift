@@ -10,9 +10,9 @@ import Foundation
 import Metal
 
 class SubMesh {
-    var device:MTLDevice! = nil
-    var parent:Mesh! = nil
+    unowned var parent:Mesh
     var material:Material! = nil
+    var materialName = ""
     
     var vertBuffer:MTLBuffer! = nil
     var indexBuffer:MTLBuffer! = nil
@@ -22,12 +22,12 @@ class SubMesh {
     var indexCount = 0
     var indexType:MTLIndexType = .uint16
     
-    init(device _device:MTLDevice, gfSubMesh: GFSubMesh, to mesh:Mesh) {
-        device = _device
+    init(gfSubMesh: GFSubMesh, to mesh:Mesh) {
         parent = mesh
-        
+        materialName = gfSubMesh.name
         material = parent.parent.materialDict[gfSubMesh.name]!
         
+        let device = RenderEngine.sharedInstance.device!
         let vertDesc = MTLVertexDescriptor.init()
         
         let bufferIndex = 0
@@ -121,11 +121,8 @@ class SubMesh {
         }
         
         indexBuffer = device.makeBuffer(bytes: tmp, length: tmp.count*MemoryLayout.size(ofValue: tmp[0]), options: [])
+        indexBuffer.label = vertBuffer.label! + "_index"
         indexCount = tmp.count
-        
-        let defaultLibrary = device.makeDefaultLibrary()
-        let vertProgram = defaultLibrary?.makeFunction(name: "basic_vertex")
-        let fragProgram = defaultLibrary?.makeFunction(name: "basic_fragment")
         
         let colorDesc = MTLRenderPipelineColorAttachmentDescriptor.init()
         colorDesc.isBlendingEnabled = material.alphaBendEnable
@@ -139,8 +136,8 @@ class SubMesh {
         colorDesc.pixelFormat = .bgra8Unorm
         
         let renderPiplineDesc = MTLRenderPipelineDescriptor.init()
-        renderPiplineDesc.vertexFunction = vertProgram
-        renderPiplineDesc.fragmentFunction = fragProgram
+        renderPiplineDesc.vertexFunction = RenderEngine.sharedInstance.vertFunc
+        renderPiplineDesc.fragmentFunction = RenderEngine.sharedInstance.fragFunc
         renderPiplineDesc.vertexDescriptor = vertDesc
         renderPiplineDesc.colorAttachments[0] = colorDesc
         renderPiplineDesc.depthAttachmentPixelFormat = .depth32Float_stencil8

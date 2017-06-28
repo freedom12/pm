@@ -22,7 +22,6 @@ class ViewController: UIViewController {
         if i < 1 {
             i = 10422/9
         }
-        i = 1
         load(i)
     }
     
@@ -31,7 +30,6 @@ class ViewController: UIViewController {
         if i > 10422/9 {
             i = 1
         }
-        i = 1
         load(i)
     }
     

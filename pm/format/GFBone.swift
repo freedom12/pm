@@ -12,7 +12,7 @@ class GFBone {
     var file:FileHandle
     var name = ""
     var parent = ""
-    var flags = Data.init()
+    var flags = 0
     
     var scale = Vector3.init(0, 0, 0)
     var rotation = Vector3.init(0, 0, 0)
@@ -23,7 +23,7 @@ class GFBone {
         
         name = file.readStringByte()
         parent = file.readStringByte()
-        flags = file.readByte()
+        flags = file.readInt8()
         
         scale = file.readVector3()
         rotation = file.readVector3()

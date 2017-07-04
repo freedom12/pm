@@ -108,9 +108,9 @@ class SubMesh {
             index += 1
         }
         
-        vertDesc.layouts[0].stride = offset
-        vertDesc.layouts[0].stepRate = 1
-        vertDesc.layouts[0].stepFunction = .perVertex
+        vertDesc.layouts[bufferIndex].stride = offset
+        vertDesc.layouts[bufferIndex].stepRate = 1
+        vertDesc.layouts[bufferIndex].stepFunction = .perVertex
         
         vertBuffer = device.makeBuffer(bytes: gfSubMesh.rawBuffer.bytes, length: gfSubMesh.rawBuffer.length, options: [])
         vertBuffer.label = gfSubMesh.name

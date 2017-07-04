@@ -48,3 +48,29 @@ fragment half4 basic_fragment(
     half4 ret = half4(color)/255.0;
     return half4(ret);
 }
+
+
+
+
+
+struct In {
+    float3 translation [[attribute(0)]];
+};
+struct Out {
+    float4 translation [[position]];
+};
+
+
+vertex Out line_vertex(
+                                In in [[stage_in]],
+                                constant float4x4& projMat [[buffer(1)]],
+                                constant float4x4& mvMat [[buffer(2)]]) {
+    Out out;
+    out.translation = projMat * mvMat * float4(in.translation, 1.0);
+    
+    return out;
+}
+
+fragment half4 line_fragment(ShaderInOut in [[stage_in]]) {
+    return half4(0.5, 0.5, 0.5, 0.5);
+}

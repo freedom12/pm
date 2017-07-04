@@ -93,6 +93,8 @@ class GFPackage {
             case GFMotionConstant:
                 let container = GFAnimContainer.init(withFile: file)
                 var anim = GFAnim()
+                anim.frameCount = container.frameCount
+                anim.isLoop = container.isLoop
                 anim.skeletonAnim = container.skeletonAnim
                 anim.materialAnim = container.materialAnim
                 anim.visibilityAnim = container.visibilityAnim
@@ -108,4 +110,6 @@ struct GFAnim {
     var materialAnim:GFMaterialAnim? = nil
     var visibilityAnim:GFVisibilityAnim? = nil
     var name = ""
+    var frameCount = 0
+    var isLoop = false
 }

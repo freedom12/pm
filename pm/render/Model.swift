@@ -11,6 +11,8 @@ import Metal
 
 class Model {
     var meshes:[Mesh] = []
+    var anims:[Anim] = []
+    var bones:[Bone] = []
     var materialDict:Dictionary<String, Material> = [:]
     var textureDict:Dictionary<String, Texture> = [:]
     
@@ -24,6 +26,25 @@ class Model {
             let mesh = Mesh.init(gfMesh: gfMesh, to: self)
             meshes.append(mesh)
         }
+        
+        for gfBone in gfModel.bones {
+            let bone = Bone.init(gfBone: gfBone)
+            bone.parentIndex = findParentIndex(name: bone.parentName, in: gfModel.bones)
+            bones.append(bone)
+        }
+        
+        for bone in bones {
+            bone.calTransform(bones: bones)
+        }
+    }
+    
+    private func findParentIndex(name:String, in Bones:[GFBone]) -> Int {
+        for (index, gfBone) in bones.enumerated() {
+            if gfBone.name == name {
+                return index
+            }
+        }
+        return -1
     }
     
     public func render(_ encoder:MTLRenderCommandEncoder) {
@@ -49,6 +70,49 @@ class Model {
                                                     indexBuffer: subMesh.indexBuffer,
                                                     indexBufferOffset: 0)
             }
+        }
+        
+        if RenderEngine.sharedInstance.isRenderBone {
+            var pointArr:[Float] = []
+            for bone in bones {
+                if bone.parentIndex > 0 {
+                    let arr2 = (Vector4.init(x: 0, y: 0, z: 0, w: 1)*bones[bone.parentIndex].inheritTransform).toArray()
+                    pointArr.append(arr2[0])
+                    pointArr.append(arr2[1])
+                    pointArr.append(arr2[2])
+                    let arr1 = (Vector4.init(x: 0, y: 0, z: 0, w: 1)*bone.inheritTransform).toArray()
+                    pointArr.append(arr1[0])
+                    pointArr.append(arr1[1])
+                    pointArr.append(arr1[2])
+                }
+            }
+            
+            let buffuer = RenderEngine.sharedInstance.device.makeBuffer(bytes: pointArr, length: pointArr.count * MemoryLayout.size(ofValue: pointArr[0]), options: [])
+            let depthStencilDesc = MTLDepthStencilDescriptor.init()
+            depthStencilDesc.depthCompareFunction = .always
+            let depthStencilState = RenderEngine.sharedInstance.device.makeDepthStencilState(descriptor: depthStencilDesc)
+            encoder.setDepthStencilState(depthStencilState)
+            
+            let vertDesc = MTLVertexDescriptor.init()
+            vertDesc.attributes[0].format = .float3
+            vertDesc.attributes[0].offset = 0
+            vertDesc.attributes[0].bufferIndex = 0
+            vertDesc.layouts[0].stride = 12
+            vertDesc.layouts[0].stepRate = 1
+            vertDesc.layouts[0].stepFunction = .perVertex
+            
+            let renderPiplineDesc = MTLRenderPipelineDescriptor.init()
+            renderPiplineDesc.vertexFunction = RenderEngine.sharedInstance.defaultLibrary.makeFunction(name: "line_vertex")!
+            renderPiplineDesc.fragmentFunction = RenderEngine.sharedInstance.defaultLibrary.makeFunction(name: "line_fragment")!
+            renderPiplineDesc.vertexDescriptor = vertDesc
+            renderPiplineDesc.colorAttachments[0].pixelFormat = .bgra8Unorm
+            renderPiplineDesc.depthAttachmentPixelFormat = .depth32Float_stencil8
+            renderPiplineDesc.stencilAttachmentPixelFormat = .depth32Float_stencil8
+            let renderPipelineState = try! RenderEngine.sharedInstance.device.makeRenderPipelineState(descriptor: renderPiplineDesc)
+            encoder.setRenderPipelineState(renderPipelineState)
+            
+            encoder.setVertexBuffer(buffuer, offset: 0, index: 0)
+            encoder.drawPrimitives(type: .line, vertexStart: 0, vertexCount: pointArr.count/3)
         }
     }
 }

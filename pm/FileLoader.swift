@@ -46,6 +46,11 @@ class FileLoader {
                 model.textureDict[gfTexture.name] = texture
             }
             
+            for gfAnim in package.anims {
+                let anim = Anim.init(gfAnim: gfAnim, bones: gfModel.bones)
+                model.anims.append(anim)
+            }
+            
             return model
         }
         return nil

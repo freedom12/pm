@@ -14,6 +14,7 @@ class RenderEngine:NSObject, MTKViewDelegate {
     
     var device:MTLDevice! = nil
     var commandQueue: MTLCommandQueue! = nil
+    var defaultLibrary:MTLLibrary! = nil
     var models:[Model] = []
     var projMat = Matrix4.identity
     var viewMat = Matrix4.identity
@@ -21,11 +22,13 @@ class RenderEngine:NSObject, MTKViewDelegate {
     var vertFunc:MTLFunction
     var fragFunc:MTLFunction
     
+    var isRenderBone = false
+    
     override init() {
         device = MTLCreateSystemDefaultDevice()
         commandQueue = device.makeCommandQueue()
         
-        let defaultLibrary = device.makeDefaultLibrary()!
+        defaultLibrary = device.makeDefaultLibrary()!
         vertFunc = defaultLibrary.makeFunction(name: "basic_vertex")!
         fragFunc = defaultLibrary.makeFunction(name: "basic_fragment")!
     }

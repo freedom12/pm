@@ -12,7 +12,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="pm" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="pm_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -21,14 +21,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mtkView contentMode="scaleToFill" colorPixelFormat="BGRA8Unorm" depthStencilPixelFormat="Depth32Float" translatesAutoresizingMaskIntoConstraints="NO" id="Q86-IB-A8k">
+                            <mtkView multipleTouchEnabled="YES" contentMode="scaleToFill" colorPixelFormat="BGRA8Unorm" depthStencilPixelFormat="Depth32Float_Stencil8" translatesAutoresizingMaskIntoConstraints="NO" id="Q86-IB-A8k">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="clearColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
                             </mtkView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xRS-Vb-HjH">
-                                <rect key="frame" x="309" y="617" width="30" height="30"/>
+                                <rect key="frame" x="259" y="597" width="80" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="G3e-eG-RSf"/>
-                                    <constraint firstAttribute="height" constant="30" id="HoQ-02-xJa"/>
+                                    <constraint firstAttribute="width" constant="80" id="G3e-eG-RSf"/>
+                                    <constraint firstAttribute="height" constant="50" id="HoQ-02-xJa"/>
                                 </constraints>
                                 <state key="normal" title="next"/>
                                 <connections>
@@ -36,10 +37,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gYx-AA-MxL">
-                                <rect key="frame" x="36" y="617" width="30" height="30"/>
+                                <rect key="frame" x="36" y="597" width="80" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="8vl-js-XJF"/>
-                                    <constraint firstAttribute="height" constant="30" id="yfG-y8-nxL"/>
+                                    <constraint firstAttribute="width" constant="80" id="8vl-js-XJF"/>
+                                    <constraint firstAttribute="height" constant="50" id="yfG-y8-nxL"/>
                                 </constraints>
                                 <state key="normal" title="last"/>
                                 <connections>
@@ -52,6 +53,17 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dzi-Jb-z6R" userLabel="boneBtn">
+                                <rect key="frame" x="147" y="60" width="80" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="1do-dI-hrL"/>
+                                    <constraint firstAttribute="width" constant="80" id="Qar-fz-Ges"/>
+                                </constraints>
+                                <state key="normal" title="bone"/>
+                                <connections>
+                                    <action selector="changeBoneHandler:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HvP-cK-cf6"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -59,8 +71,10 @@
                             <constraint firstAttribute="bottom" secondItem="Q86-IB-A8k" secondAttribute="bottom" id="3zk-16-LvA"/>
                             <constraint firstAttribute="bottom" secondItem="gYx-AA-MxL" secondAttribute="bottom" constant="20" id="Bwf-Al-qgI"/>
                             <constraint firstItem="gYx-AA-MxL" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="CHi-fx-ube"/>
+                            <constraint firstItem="Dzi-Jb-z6R" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Dfh-s8-5V3"/>
                             <constraint firstItem="xRS-Vb-HjH" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="-20" id="Lz4-LB-isP"/>
                             <constraint firstAttribute="trailing" secondItem="Q86-IB-A8k" secondAttribute="trailing" id="Rls-zq-Dzr"/>
+                            <constraint firstItem="Dzi-Jb-z6R" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="60" id="aDi-mG-yZz"/>
                             <constraint firstItem="Q86-IB-A8k" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="dRo-Tl-VOJ"/>
                             <constraint firstItem="Q86-IB-A8k" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="iUC-KU-W37"/>
                             <constraint firstAttribute="bottom" secondItem="xRS-Vb-HjH" secondAttribute="bottom" constant="20" id="xwN-EQ-eTe"/>

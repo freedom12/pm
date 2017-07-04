@@ -33,19 +33,23 @@ class ViewController: UIViewController {
         load(i)
     }
     
+    @IBAction func changeBoneHandler(_ sender: Any) {
+        RenderEngine.sharedInstance.isRenderBone = !RenderEngine.sharedInstance.isRenderBone
+    }
+    
     var viewMat:Matrix4 = Matrix4.identity
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mtkView.isMultipleTouchEnabled = true
         mtkView.delegate = RenderEngine.sharedInstance
         mtkView.device = RenderEngine.sharedInstance.device
-        mtkView.colorPixelFormat = .bgra8Unorm
-        mtkView.depthStencilPixelFormat = .depth32Float_stencil8
-        mtkView.clearColor = MTLClearColor(red: 0.0, green: 104.0/255.0, blue: 5.0/255.0, alpha: 1.0)
-        mtkView.clearDepth = 1
-        mtkView.clearStencil = 0
+//        mtkView.isMultipleTouchEnabled = true
+//        mtkView.colorPixelFormat = .bgra8Unorm
+//        mtkView.depthStencilPixelFormat = .depth32Float_stencil8
+        mtkView.clearColor = MTLClearColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 1.0)
+//        mtkView.clearDepth = 1
+//        mtkView.clearStencil = 0
         
         viewMat = Matrix4.init(translation: Vector3.init(0, -100, -400))
         RenderEngine.sharedInstance.viewMat = viewMat

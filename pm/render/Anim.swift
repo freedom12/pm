@@ -10,12 +10,14 @@ import Foundation
 
 class Anim {
     var skeletonElements:[AnimElement] = []
+    var bones:[Bone] = []
+    
     var frameCount = 0
     var isLoop = false
-    init(gfAnim:GFAnim, bones:[GFBone]) {
+    init(gfAnim:GFAnim, bones _bones:[Bone]) {
         frameCount = gfAnim.frameCount
         isLoop = gfAnim.isLoop
-        
+        bones = _bones
         if let skeletonAnim = gfAnim.skeletonAnim {
             for transform in skeletonAnim.transforms {
                 let bone = findBone(name: transform.name, in: bones)
@@ -25,17 +27,16 @@ class Anim {
                     animElement.primitiveType = .quatTransform
                     for frame in 0 ..< frameCount {
                         var scale = bone.scale
-                        var rotation = bone.rotation
-                        var translation = bone.position
-                        
                         scale.x = getValue(at: frame, from: transform.scaleXFrames, value: scale.x)
                         scale.y = getValue(at: frame, from: transform.scaleYFrames, value: scale.y)
                         scale.z = getValue(at: frame, from: transform.scaleZFrames, value: scale.z)
                         
+                        var rotation = bone.rotation2
                         rotation.x = getValue(at: frame, from: transform.rotationXFrames, value: rotation.x)
                         rotation.y = getValue(at: frame, from: transform.rotationYFrames, value: rotation.y)
                         rotation.z = getValue(at: frame, from: transform.rotationZFrames, value: rotation.z)
                         
+                        var translation = bone.translation
                         translation.x = getValue(at: frame, from: transform.translationXFrames, value: translation.x)
                         translation.y = getValue(at: frame, from: transform.translationYFrames, value: translation.y)
                         translation.z = getValue(at: frame, from: transform.translationZFrames, value: translation.z)
@@ -56,7 +57,7 @@ class Anim {
         }
     }
     
-    private func findBone(name:String, in bones:[GFBone]) -> GFBone? {
+    private func findBone(name:String, in bones:[Bone]) -> Bone? {
         for bone in bones {
             if bone.name == name {
                 return bone
@@ -96,6 +97,31 @@ class Anim {
         result += (lhs.value - rhs.value) * (2 * weight - 3) * weight * weight
         result += (diff * (weight - 1)) * (lhs.slope * (weight - 1) + rhs.slope * weight)
         return result
+    }
+    
+    public func getTransforms(at frame:Int) -> [Bone] {
+        //缩放继承的骨骼动画可能会有问题？
+        var tmpBones:[Bone] = []
+        for bone in bones {
+            let tmpBone = Bone.init(bone: bone)
+            let arr = skeletonElements.filter({$0.name == bone.name})
+            if arr.count > 0 {
+                let elem = arr[0]
+                switch elem.primitiveType {
+                case .quatTransform:
+                    tmpBone.scale = elem.transforms[frame].scale
+                    tmpBone.rotation = elem.transforms[frame].rotation
+                    tmpBone.translation = elem.transforms[frame].translation
+                default: break
+                }
+            }
+            tmpBones.append(tmpBone)
+        }
+        
+        for bone in tmpBones {
+            bone.calTransform(bones: tmpBones)
+        }
+        return tmpBones
     }
 }
 

@@ -63,9 +63,13 @@ class Model {
                     let texture = textureDict[textureName]
                     encoder.setFragmentTexture(texture?.texture, index: index)
                     encoder.setFragmentSamplerState(material.samplerStates[index], index: index)
+                    
+                    if index == 0 {
+                        let arr = material.transforms[0].toArray()
+                        encoder.setVertexBytes(arr, length: arr.count * MemoryLayout.size(ofValue: arr[0]), index: 3)
+                    }
                 }
-                let arr = material.transforms[0].toArray()
-                encoder.setVertexBytes(arr, length: arr.count * MemoryLayout.size(ofValue: arr[0]), index: 3)
+                
                 
                 var transforms:[Matrix4] = Array.init(repeating: Matrix4.identity, count: 32)
                 for i in 0 ..< transforms.count {
@@ -83,14 +87,12 @@ class Model {
                 let len = transformArr.count * MemoryLayout.size(ofValue: transformArr[0])
                 encoder.setVertexBytes(transformArr, length: len, index: 4)
                 
-                if subMesh.fixedBoneWeight != Vector4.zero {
-                    let fixedArr = subMesh.fixedBoneWeight.toArray()
-                    encoder.setVertexBytes(fixedArr, length: fixedArr.count*MemoryLayout.size(ofValue: fixedArr[0]), index: 5)
+                
+                var fixedAttrArr:[Float] = []
+                for i in subMesh.fixedAttrs {
+                    fixedAttrArr += i.toArray()
                 }
-                if subMesh.fixedBoneIndex != Vector4.zero {
-                    let fixedArr = subMesh.fixedBoneIndex.toArray()
-                    encoder.setVertexBytes(fixedArr, length: fixedArr.count*MemoryLayout.size(ofValue: fixedArr[0]), index: 6)
-                }
+                encoder.setVertexBytes(fixedAttrArr, length: fixedAttrArr.count*MemoryLayout.size(ofValue: fixedAttrArr[0]), index: 10)
                 
                 encoder.setCullMode(material.cullMode)
                 encoder.setStencilReferenceValue(material.stencilReference)

@@ -23,10 +23,8 @@ class SubMesh {
     var indexType:MTLIndexType = .uint16
     
     var boneIndices:[Int] = []
-    
-    var fixedBoneIndex = Vector4.zero
-    var fixedBoneWeight = Vector4.zero
-    
+    var fixedAttrExists:[Bool] = Array.init(repeating: false, count: 9)
+    var fixedAttrs:[Vector4] = Array.init(repeating: Vector4.zero, count: 9)
     
     var isVisible = false
     init(gfSubMesh: GFSubMesh, to mesh:Mesh) {
@@ -39,109 +37,40 @@ class SubMesh {
         let vertDesc = MTLVertexDescriptor.init()
         
         let bufferIndex = 0
-        var index = 0
         var offset = 0
-        
-        var hasTexcoord0 = false
-        var hasBoneIndex = false
-        var hasBoneWeigth = false
         
         for attr in gfSubMesh.attrs {
             let type = attr.formate
             let num = attr.elements
+            let pos = attr.name.rawValue
             if attr.name == .position {
-                vertDesc.attributes[0].format = .float3
-                vertDesc.attributes[0].offset = offset
-                vertDesc.attributes[0].bufferIndex = bufferIndex
+                vertDesc.attributes[pos].format = .float3
             } else if attr.name == .texCoord0 {
-                vertDesc.attributes[1].format = .float2
-                vertDesc.attributes[1].offset = offset
-                vertDesc.attributes[1].bufferIndex = bufferIndex
-                hasTexcoord0 = true
-//            } else if attr.name == .texCoord1 {
-//                vertDesc.attributes[2].format = .float2
-//                vertDesc.attributes[2].offset = offset
-//                vertDesc.attributes[2].bufferIndex = bufferIndex
-//            } else if attr.name == .texCoord2 {
-//                vertDesc.attributes[3].format = .float2
-//                vertDesc.attributes[3].offset = offset
-//                vertDesc.attributes[3].bufferIndex = bufferIndex
+                vertDesc.attributes[pos].format = .float2
+            } else if attr.name == .texCoord1 {
+                vertDesc.attributes[pos].format = .float2
+            } else if attr.name == .texCoord2 {
+                vertDesc.attributes[pos].format = .float2
             } else if attr.name == .boneIndex {
-                vertDesc.attributes[2].format = .uchar4
-                vertDesc.attributes[2].offset = offset
-                vertDesc.attributes[2].bufferIndex = bufferIndex
-                hasBoneIndex = true
+                vertDesc.attributes[pos].format = .uchar4
             } else if attr.name == .boneWeight {
-                vertDesc.attributes[3].format = .uchar4Normalized
-                vertDesc.attributes[3].offset = offset
-                vertDesc.attributes[3].bufferIndex = bufferIndex
-                hasBoneWeigth = true
+                vertDesc.attributes[pos].format = .uchar4Normalized
             }
+            vertDesc.attributes[pos].offset = offset
+            vertDesc.attributes[pos].bufferIndex = bufferIndex
             
-            
-            if (type == .byte && num == 1) {
-//                vertDescriptor.attributes[index].format = .char
-                offset = offset + 1
-            } else if (type == .byte && num == 2) {
-//                vertDescriptor.attributes[index].format = .char2
-                offset = offset + 2
-            } else if (type == .byte && num == 3) {
-//                vertDescriptor.attributes[index].format = .char3
-                offset = offset + 3
-            } else if (type == .byte && num == 4) {
-//                vertDescriptor.attributes[index].format = .char4
-                offset = offset + 4
-            } else if (type == .uByte && num == 1) {
-//                vertDescriptor.attributes[index].format = .uchar
-                offset = offset + 1
-            } else if (type == .uByte && num == 2) {
-//                vertDescriptor.attributes[index].format = .uchar2
-                offset = offset + 2
-            } else if (type == .uByte && num == 3) {
-//                vertDescriptor.attributes[index].format = .uchar3
-                offset = offset + 3
-            } else if (type == .uByte && num == 4) {
-//                vertDescriptor.attributes[index].format = .uchar4
-                offset = offset + 4
-            } else if (type == .short && num == 1) {
-//                vertDescriptor.attributes[index].format = .short
-                offset = offset + 2
-            } else if (type == .short && num == 2) {
-//                vertDescriptor.attributes[index].format = .short2
-                offset = offset + 4
-            } else if (type == .short && num == 3) {
-//                vertDescriptor.attributes[index].format = .short3
-                offset = offset + 6
-            } else if (type == .short && num == 4) {
-//                vertDescriptor.attributes[index].format = .short4
-                offset = offset + 8
-            } else if (type == .float && num == 1) {
-//                vertDescriptor.attributes[index].format = .float
-                offset = offset + 4
-            } else if (type == .float && num == 2) {
-//                vertDescriptor.attributes[index].format = .float2
-                offset = offset + 8
-            } else if (type == .float && num == 3) {
-//                vertDescriptor.attributes[index].format = .float3
-                offset = offset + 12
-            } else if (type == .float && num == 4) {
-//                vertDescriptor.attributes[index].format = .float4
-                offset = offset + 16
+            if (type == .byte || type == .uByte) {
+                offset = offset + 1 * num
+            } else if (type == .short) {
+                offset = offset + 2 * num
+            } else if (type == .float) {
+                offset = offset + 4 * num
             }
-            
-            index += 1
         }
         
         for attr in gfSubMesh.fixedAttrs {
-            if attr.name == .position {
-                
-            } else if attr.name == .texCoord0 {
-                
-            } else if attr.name == .boneIndex {
-                fixedBoneIndex = attr.value
-            } else if attr.name == .boneWeight {
-                fixedBoneWeight = attr.value
-            }
+            fixedAttrs[attr.name.rawValue] = attr.value
+            fixedAttrExists[attr.name.rawValue] = true
         }
         isVisible = true
         
@@ -172,28 +101,13 @@ class SubMesh {
         colorDesc.sourceRGBBlendFactor = material.colorSrcFactor
         colorDesc.pixelFormat = .bgra8Unorm
         
+        
         let renderPiplineDesc = MTLRenderPipelineDescriptor.init()
-        renderPiplineDesc.vertexFunction = RenderEngine.sharedInstance.vertFunc
-        renderPiplineDesc.fragmentFunction = RenderEngine.sharedInstance.fragFunc
+        (renderPiplineDesc.vertexFunction, renderPiplineDesc.fragmentFunction) = createFunc()
         renderPiplineDesc.vertexDescriptor = vertDesc
         renderPiplineDesc.colorAttachments[0] = colorDesc
         renderPiplineDesc.depthAttachmentPixelFormat = .depth32Float_stencil8
         renderPiplineDesc.stencilAttachmentPixelFormat = .depth32Float_stencil8
-        
-        if hasBoneWeigth && hasBoneIndex && hasTexcoord0
-        {
-            renderPiplineDesc.vertexFunction = RenderEngine.sharedInstance.vertFunc_t0_bi_bw
-            renderPiplineDesc.fragmentFunction = RenderEngine.sharedInstance.fragFunc_t0
-        } else if hasBoneIndex && hasTexcoord0 {
-            renderPiplineDesc.vertexFunction = RenderEngine.sharedInstance.vertFunc_t0_bi
-            renderPiplineDesc.fragmentFunction = RenderEngine.sharedInstance.fragFunc_t0
-        } else if hasBoneWeigth && hasTexcoord0 {
-            renderPiplineDesc.vertexFunction = RenderEngine.sharedInstance.vertFunc_t0_bw
-            renderPiplineDesc.fragmentFunction = RenderEngine.sharedInstance.fragFunc_t0
-        } else if hasTexcoord0 {
-            renderPiplineDesc.vertexFunction = RenderEngine.sharedInstance.vertFunc_t0
-            renderPiplineDesc.fragmentFunction = RenderEngine.sharedInstance.fragFunc_t0
-        }
         
         let stencilDesc = MTLStencilDescriptor.init()
         stencilDesc.readMask = material.stencilReadMask
@@ -221,6 +135,106 @@ class SubMesh {
         } catch {
             print("创建pipeline state失败： \(error)")
         }
+    }
+    
+    private func createFunc() -> (MTLFunction?, MTLFunction?) {
+        var str = "#include <metal_stdlib>\n"
+        str += "using namespace metal;\n"
+        str += "struct Vin {\n"
+        str += "    float3 translation [[attribute(\(PICAAttrName.position.rawValue))]];\n"
+        if !fixedAttrExists[PICAAttrName.texCoord0.rawValue] {
+            str += "    float2 texcoord0 [[attribute(\(PICAAttrName.texCoord0.rawValue))]];\n"
+        }
+        if !fixedAttrExists[PICAAttrName.texCoord1.rawValue] {
+            str += "    float2 texcoord1 [[attribute(\(PICAAttrName.texCoord1.rawValue))]];\n"
+        }
+        if !fixedAttrExists[PICAAttrName.texCoord2.rawValue] {
+            str += "    float2 texcoord2 [[attribute(\(PICAAttrName.texCoord2.rawValue))]];\n"
+        }
+        if !fixedAttrExists[PICAAttrName.boneIndex.rawValue] {
+            str += "    uchar4 boneIndex [[attribute(\(PICAAttrName.boneIndex.rawValue))]];\n"
+        }
+        if !fixedAttrExists[PICAAttrName.boneWeight.rawValue] {
+            str += "    float4 boneWeight [[attribute(\(PICAAttrName.boneWeight.rawValue))]];\n"
+        }
+        str += "};\n"
+        
+        str += "struct Vout {\n" +
+        "    float4 translation [[position]];\n" +
+        "    float2 texcoord0;\n" +
+        "    float2 texcoord1;\n" +
+        "    float2 texcoord2;\n" +
+        "};\n"
+        
+        
+        str += "vertex Vout vert_func (Vin in [[stage_in]],\n" +
+            "       constant float4x4& projMat [[buffer(1)]],\n" +
+            "       constant float4x4& mvMat [[buffer(2)]],\n" +
+            "       constant packed_float3* matetialMatArr [[buffer(3)]],\n" +
+            "       constant float4x4* animMatArr [[buffer(4)]],\n" +
+            "       constant float4* fixedAttrArr [[buffer(10)]],\n" +
+            "       unsigned int vid [[ vertex_id ]]) {\n" +
+            "   Vout out;\n"
+        if !fixedAttrExists[PICAAttrName.texCoord0.rawValue] {
+            str += "    float2 texcoord0 = in.texcoord0;\n"
+        } else {
+            str += "    float2 texcoord0 = float2(0);\n"
+            str += "    texcoord0.xy = fixedAttrArr[\(PICAAttrName.texCoord0.rawValue)].xy;\n"
+        }
+        if !fixedAttrExists[PICAAttrName.texCoord1.rawValue] {
+            str += "    float2 texcoord1 = in.texcoord1;\n"
+        } else {
+            str += "    float2 texcoord1 = float2(0);\n"
+            str += "    texcoord1.xy = fixedAttrArr[\(PICAAttrName.texCoord1.rawValue)].xy;\n"
+        }
+        if !fixedAttrExists[PICAAttrName.texCoord2.rawValue] {
+            str += "    float2 texcoord2 = in.texcoord2;\n"
+        } else {
+            str += "    float2 texcoord2 = float2(0);\n"
+            str += "    texcoord2.xy = fixedAttrArr[\(PICAAttrName.texCoord2.rawValue)].xy;\n"
+        }
+        if !fixedAttrExists[PICAAttrName.boneIndex.rawValue] {
+            str += "    uchar4 boneIndex = in.boneIndex;\n"
+        } else {
+            str += "    int4 boneIndex = int4(0);\n"
+            str += "    boneIndex[0] = (int(fixedAttrArr[\(PICAAttrName.boneIndex.rawValue)][0]) & 0x1f);\n"
+            str += "    boneIndex[1] = (int(fixedAttrArr[\(PICAAttrName.boneIndex.rawValue)][1]) & 0x1f);\n"
+            str += "    boneIndex[2] = (int(fixedAttrArr[\(PICAAttrName.boneIndex.rawValue)][2]) & 0x1f);\n"
+            str += "    boneIndex[3] = (int(fixedAttrArr[\(PICAAttrName.boneIndex.rawValue)][3]) & 0x1f);\n"
+        }
+        if !fixedAttrExists[PICAAttrName.boneWeight.rawValue] {
+            str += "    float4 boneWeight = in.boneWeight;\n"
+        } else {
+            str += "    float4 boneWeight = fixedAttrArr[\(PICAAttrName.boneWeight.rawValue)];\n"
+        }
+        
+        str += "    float4 pos = animMatArr[boneIndex[0]] * float4(in.translation, 1.0) * boneWeight[0];\n"
+        str += "    pos += animMatArr[boneIndex[1]] * float4(in.translation, 1.0) * boneWeight[1];\n"
+        str += "    pos += animMatArr[boneIndex[2]] * float4(in.translation, 1.0) * boneWeight[2];\n"
+        str += "    pos += animMatArr[boneIndex[3]] * float4(in.translation, 1.0) * boneWeight[3];\n"
+        str += "    out.translation = projMat * mvMat * pos;\n"
+        
+        str += "    float3x3 matetialMat = float3x3(matetialMatArr[0], matetialMatArr[1], matetialMatArr[2]);\n"
+        str += "    out.texcoord0.xy = (matetialMat * float3(texcoord0, 1.0)).xy;\n"
+        str += "    out.texcoord1.xy = (matetialMat * float3(texcoord1, 1.0)).xy;\n"
+        str += "    out.texcoord2.xy = (matetialMat * float3(texcoord2, 1.0)).xy;\n"
+        str += "    return out;\n"
+        str += "    }\n"
+        
+        
+        str += "fragment half4 frag_func(\n"
+        str += "        Vout in [[stage_in]],\n"
+        str += "        sampler smp [[sampler(0)]],\n"
+        str += "        texture2d<uint> diffuseTexture [[texture(0)]]) {\n"
+        str += "    uint4 color = diffuseTexture.sample(smp, float2(in.texcoord0));\n"
+        str += "    half4 ret = half4(color)/255.0;\n"
+        str += "    return half4(ret);\n"
+        str += "}\n"
+        
+        let library = try! RenderEngine.sharedInstance.device.makeLibrary(source: str, options: nil)
+        let vertFunc = library.makeFunction(name: "vert_func")
+        let fragFunc = library.makeFunction(name: "frag_func")
+        return (vertFunc, fragFunc)
     }
 }
 

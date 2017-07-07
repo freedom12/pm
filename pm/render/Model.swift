@@ -83,6 +83,15 @@ class Model {
                 let len = transformArr.count * MemoryLayout.size(ofValue: transformArr[0])
                 encoder.setVertexBytes(transformArr, length: len, index: 4)
                 
+                if subMesh.fixedBoneWeight != Vector4.zero {
+                    let fixedArr = subMesh.fixedBoneWeight.toArray()
+                    encoder.setVertexBytes(fixedArr, length: fixedArr.count*MemoryLayout.size(ofValue: fixedArr[0]), index: 5)
+                }
+                if subMesh.fixedBoneIndex != Vector4.zero {
+                    let fixedArr = subMesh.fixedBoneIndex.toArray()
+                    encoder.setVertexBytes(fixedArr, length: fixedArr.count*MemoryLayout.size(ofValue: fixedArr[0]), index: 6)
+                }
+                
                 encoder.setCullMode(material.cullMode)
                 encoder.setStencilReferenceValue(material.stencilReference)
                 encoder.setDepthStencilState(subMesh.depthStencilState)

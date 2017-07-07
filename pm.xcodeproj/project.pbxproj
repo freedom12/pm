@@ -232,7 +232,6 @@
 				3908756F1F03595B000FAAFB /* FileLoader.swift */,
 				39D5C62B1EF784CA003DE7F1 /* Util.swift */,
 				399FDAAA1EF12523006B93BA /* VectorMath.swift */,
-				39CB9BD41EF79FC900280DD5 /* Shader.metal */,
 				393773E01F0C8C61002F5078 /* DataMgr.swift */,
 			);
 			path = pm;
@@ -248,6 +247,7 @@
 		39CB9BD61EF7A51E00280DD5 /* render */ = {
 			isa = PBXGroup;
 			children = (
+				39CB9BD41EF79FC900280DD5 /* Shader.metal */,
 				398D07CF1F034D75005F19E4 /* RenderEngine.swift */,
 				39CB9BD91EF7A55600280DD5 /* Model.swift */,
 				39B249FD1EF90E9A003C1F77 /* Mesh.swift */,

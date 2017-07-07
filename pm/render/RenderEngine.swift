@@ -22,6 +22,12 @@ class RenderEngine:NSObject, MTKViewDelegate {
     var vertFunc:MTLFunction
     var fragFunc:MTLFunction
     
+    var vertFunc_t0_bi_bw:MTLFunction
+    var vertFunc_t0_bi:MTLFunction
+    var vertFunc_t0_bw:MTLFunction
+    var vertFunc_t0:MTLFunction
+    var fragFunc_t0:MTLFunction
+    
     var isRenderBone = false
     
     override init() {
@@ -31,6 +37,12 @@ class RenderEngine:NSObject, MTKViewDelegate {
         defaultLibrary = device.makeDefaultLibrary()!
         vertFunc = defaultLibrary.makeFunction(name: "basic_vertex")!
         fragFunc = defaultLibrary.makeFunction(name: "basic_fragment")!
+        
+        vertFunc_t0_bi_bw = defaultLibrary.makeFunction(name: "vertex_t0_bi_bw")!
+        vertFunc_t0_bi = defaultLibrary.makeFunction(name: "vertex_t0_bi")!
+        vertFunc_t0_bw = defaultLibrary.makeFunction(name: "vertex_t0_bw")!
+        vertFunc_t0 = defaultLibrary.makeFunction(name: "vertex_t0")!
+        fragFunc_t0 = defaultLibrary.makeFunction(name: "fragment_t0")!
     }
     
     public func clear() {

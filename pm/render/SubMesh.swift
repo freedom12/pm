@@ -24,6 +24,9 @@ class SubMesh {
     
     var boneIndices:[Int] = []
     
+    var fixedBoneIndex = Vector4.zero
+    var fixedBoneWeight = Vector4.zero
+    
     
     var isVisible = false
     init(gfSubMesh: GFSubMesh, to mesh:Mesh) {
@@ -38,6 +41,11 @@ class SubMesh {
         let bufferIndex = 0
         var index = 0
         var offset = 0
+        
+        var hasTexcoord0 = false
+        var hasBoneIndex = false
+        var hasBoneWeigth = false
+        
         for attr in gfSubMesh.attrs {
             let type = attr.formate
             let num = attr.elements
@@ -49,6 +57,7 @@ class SubMesh {
                 vertDesc.attributes[1].format = .float2
                 vertDesc.attributes[1].offset = offset
                 vertDesc.attributes[1].bufferIndex = bufferIndex
+                hasTexcoord0 = true
 //            } else if attr.name == .texCoord1 {
 //                vertDesc.attributes[2].format = .float2
 //                vertDesc.attributes[2].offset = offset
@@ -61,11 +70,12 @@ class SubMesh {
                 vertDesc.attributes[2].format = .uchar4
                 vertDesc.attributes[2].offset = offset
                 vertDesc.attributes[2].bufferIndex = bufferIndex
-                isVisible = true
+                hasBoneIndex = true
             } else if attr.name == .boneWeight {
                 vertDesc.attributes[3].format = .uchar4Normalized
                 vertDesc.attributes[3].offset = offset
                 vertDesc.attributes[3].bufferIndex = bufferIndex
+                hasBoneWeigth = true
             }
             
             
@@ -122,6 +132,19 @@ class SubMesh {
             index += 1
         }
         
+        for attr in gfSubMesh.fixedAttrs {
+            if attr.name == .position {
+                
+            } else if attr.name == .texCoord0 {
+                
+            } else if attr.name == .boneIndex {
+                fixedBoneIndex = attr.value
+            } else if attr.name == .boneWeight {
+                fixedBoneWeight = attr.value
+            }
+        }
+        isVisible = true
+        
         vertDesc.layouts[bufferIndex].stride = offset
         vertDesc.layouts[bufferIndex].stepRate = 1
         vertDesc.layouts[bufferIndex].stepFunction = .perVertex
@@ -156,6 +179,21 @@ class SubMesh {
         renderPiplineDesc.colorAttachments[0] = colorDesc
         renderPiplineDesc.depthAttachmentPixelFormat = .depth32Float_stencil8
         renderPiplineDesc.stencilAttachmentPixelFormat = .depth32Float_stencil8
+        
+        if hasBoneWeigth && hasBoneIndex && hasTexcoord0
+        {
+            renderPiplineDesc.vertexFunction = RenderEngine.sharedInstance.vertFunc_t0_bi_bw
+            renderPiplineDesc.fragmentFunction = RenderEngine.sharedInstance.fragFunc_t0
+        } else if hasBoneIndex && hasTexcoord0 {
+            renderPiplineDesc.vertexFunction = RenderEngine.sharedInstance.vertFunc_t0_bi
+            renderPiplineDesc.fragmentFunction = RenderEngine.sharedInstance.fragFunc_t0
+        } else if hasBoneWeigth && hasTexcoord0 {
+            renderPiplineDesc.vertexFunction = RenderEngine.sharedInstance.vertFunc_t0_bw
+            renderPiplineDesc.fragmentFunction = RenderEngine.sharedInstance.fragFunc_t0
+        } else if hasTexcoord0 {
+            renderPiplineDesc.vertexFunction = RenderEngine.sharedInstance.vertFunc_t0
+            renderPiplineDesc.fragmentFunction = RenderEngine.sharedInstance.fragFunc_t0
+        }
         
         let stencilDesc = MTLStencilDescriptor.init()
         stencilDesc.readMask = material.stencilReadMask

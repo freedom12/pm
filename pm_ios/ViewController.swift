@@ -57,12 +57,7 @@ class ViewController: UIViewController {
         
         mtkView.delegate = RenderEngine.sharedInstance
         mtkView.device = RenderEngine.sharedInstance.device
-//        mtkView.isMultipleTouchEnabled = true
-//        mtkView.colorPixelFormat = .bgra8Unorm
-//        mtkView.depthStencilPixelFormat = .depth32Float_stencil8
         mtkView.clearColor = MTLClearColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 1.0)
-//        mtkView.clearDepth = 1
-//        mtkView.clearStencil = 0
         
         viewMat = Matrix4.init(translation: Vector3.init(0, -100, -400))
         RenderEngine.sharedInstance.viewMat = viewMat
@@ -70,10 +65,11 @@ class ViewController: UIViewController {
                                             aspect: Scalar(mtkView.bounds.width/mtkView.bounds.height),
                                             near: 0.1, far: 10000)
         
+        index = (UserDefaults.standard.value(forKey: "pmIndex") as? Int) ?? 1
         load(index)
     }
     
-    var index = 18//1072
+    var index = 33//1072
     var animIndex = 0
     var model:Model? = nil
     var timer:Timer? = nil
@@ -82,6 +78,8 @@ class ViewController: UIViewController {
         let num = (index-1) * 9 + 1
         
         indexLabel.text = "No.\(num),\(index)"
+        UserDefaults.standard.set(index, forKey: "pmIndex")
+        UserDefaults.standard.synchronize()
         
         //mega 宝石鬼，mega 海皇牙，火斑喵进化
         if index == 140 || index == 540 || index == 1037 {
@@ -96,6 +94,9 @@ class ViewController: UIViewController {
         var frame = 0
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 1.0/30.0, repeats: true) { _ in
+            if self.model == nil {
+                return
+            }
             if self.model?.anims.count == 0 {
                 return
             }
@@ -104,7 +105,6 @@ class ViewController: UIViewController {
             }
             self.model?.curBones = (self.model?.anims[self.animIndex].getTransforms(at: frame))!
             frame += 1
-//            print("!!!!!!!!!!!!!", frame)
         }
     }
 

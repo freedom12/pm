@@ -22,10 +22,15 @@ class SubMesh {
     var indexCount = 0
     var indexType:MTLIndexType = .uint16
     
+    var boneIndices:[Int] = []
+    
+    
+    var isVisible = false
     init(gfSubMesh: GFSubMesh, to mesh:Mesh) {
         parent = mesh
         materialName = gfSubMesh.name
         material = parent.parent.materialDict[gfSubMesh.name]!
+        boneIndices = gfSubMesh.boneIndices
         
         let device = RenderEngine.sharedInstance.device!
         let vertDesc = MTLVertexDescriptor.init()
@@ -36,7 +41,6 @@ class SubMesh {
         for attr in gfSubMesh.attrs {
             let type = attr.formate
             let num = attr.elements
-            
             if attr.name == .position {
                 vertDesc.attributes[0].format = .float3
                 vertDesc.attributes[0].offset = offset
@@ -45,15 +49,25 @@ class SubMesh {
                 vertDesc.attributes[1].format = .float2
                 vertDesc.attributes[1].offset = offset
                 vertDesc.attributes[1].bufferIndex = bufferIndex
-            } else if attr.name == .texCoord1 {
-                vertDesc.attributes[2].format = .float2
+//            } else if attr.name == .texCoord1 {
+//                vertDesc.attributes[2].format = .float2
+//                vertDesc.attributes[2].offset = offset
+//                vertDesc.attributes[2].bufferIndex = bufferIndex
+//            } else if attr.name == .texCoord2 {
+//                vertDesc.attributes[3].format = .float2
+//                vertDesc.attributes[3].offset = offset
+//                vertDesc.attributes[3].bufferIndex = bufferIndex
+            } else if attr.name == .boneIndex {
+                vertDesc.attributes[2].format = .uchar4
                 vertDesc.attributes[2].offset = offset
                 vertDesc.attributes[2].bufferIndex = bufferIndex
-            } else if attr.name == .texCoord2 {
-                vertDesc.attributes[3].format = .float2
+                isVisible = true
+            } else if attr.name == .boneWeight {
+                vertDesc.attributes[3].format = .uchar4Normalized
                 vertDesc.attributes[3].offset = offset
                 vertDesc.attributes[3].bufferIndex = bufferIndex
             }
+            
             
             if (type == .byte && num == 1) {
 //                vertDescriptor.attributes[index].format = .char
@@ -167,7 +181,7 @@ class SubMesh {
             try renderPipelineState = device.makeRenderPipelineState(descriptor: renderPiplineDesc)
             depthStencilState = device.makeDepthStencilState(descriptor: depthStencilDesc)
         } catch {
-            print("Failed to create pipeline state, error \(error)")
+            print("创建pipeline state失败： \(error)")
         }
     }
 }

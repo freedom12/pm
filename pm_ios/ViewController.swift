@@ -73,7 +73,7 @@ class ViewController: UIViewController {
         load(index)
     }
     
-    var index = 5//1072
+    var index = 18//1072
     var animIndex = 0
     var model:Model? = nil
     var timer:Timer? = nil
@@ -94,13 +94,17 @@ class ViewController: UIViewController {
         
         animIndex = 0
         var frame = 0
-        timer?.fire()
+        timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 1.0/30.0, repeats: true) { _ in
+            if self.model?.anims.count == 0 {
+                return
+            }
             if frame >= (self.model?.anims[self.animIndex].frameCount)! {
                 frame = 0
             }
-            self.model?.bones = (self.model?.anims[self.animIndex].getTransforms(at: frame))!
+            self.model?.curBones = (self.model?.anims[self.animIndex].getTransforms(at: frame))!
             frame += 1
+//            print("!!!!!!!!!!!!!", frame)
         }
     }
 

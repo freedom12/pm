@@ -18,6 +18,8 @@
 		3931FC731EF3743A00B872A9 /* PICACommandReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3931FC721EF3743A00B872A9 /* PICACommandReader.swift */; };
 		3931FC751EF3A1F100B872A9 /* GFMaterial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3931FC741EF3A1F100B872A9 /* GFMaterial.swift */; };
 		3931FC771EF3B02500B872A9 /* GFSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3931FC761EF3B02500B872A9 /* GFSampler.swift */; };
+		393773E11F0C8C61002F5078 /* DataMgr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393773E01F0C8C61002F5078 /* DataMgr.swift */; };
+		393773E21F0C8C61002F5078 /* DataMgr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393773E01F0C8C61002F5078 /* DataMgr.swift */; };
 		39597C341EF0DF4C00DBF3D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39597C331EF0DF4C00DBF3D4 /* AppDelegate.swift */; };
 		39597C361EF0DF4C00DBF3D4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39597C351EF0DF4C00DBF3D4 /* ViewController.swift */; };
 		39597C391EF0DF4C00DBF3D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39597C371EF0DF4C00DBF3D4 /* Main.storyboard */; };
@@ -73,6 +75,8 @@
 		39B24A001EF90F2F003C1F77 /* SubMesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B249FF1EF90F2F003C1F77 /* SubMesh.swift */; };
 		39B7D8211EFB7282002BA65E /* res.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 39B7D8201EFB7276002BA65E /* res.bundle */; };
 		39B7D8231EFB754D002BA65E /* PICAStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B7D8221EFB754D002BA65E /* PICAStruct.swift */; };
+		39BAB7E91F0C87E40094CBFC /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 39BAB7E71F0C87E40094CBFC /* Model.xcdatamodeld */; };
+		39BAB7EA1F0C87E40094CBFC /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 39BAB7E71F0C87E40094CBFC /* Model.xcdatamodeld */; };
 		39CB9BD51EF79FC900280DD5 /* Shader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 39CB9BD41EF79FC900280DD5 /* Shader.metal */; };
 		39CB9BDA1EF7A55600280DD5 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CB9BD91EF7A55600280DD5 /* Model.swift */; };
 		39D5C6281EF77BEE003DE7F1 /* GFSubMesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D5C6271EF77BEE003DE7F1 /* GFSubMesh.swift */; };
@@ -101,6 +105,9 @@
 		3931FC721EF3743A00B872A9 /* PICACommandReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PICACommandReader.swift; sourceTree = "<group>"; };
 		3931FC741EF3A1F100B872A9 /* GFMaterial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFMaterial.swift; sourceTree = "<group>"; };
 		3931FC761EF3B02500B872A9 /* GFSampler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFSampler.swift; sourceTree = "<group>"; };
+		393773DE1F0C8B1D002F5078 /* Pokemon+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pokemon+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		393773DF1F0C8B1D002F5078 /* Pokemon+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pokemon+CoreDataClass.swift"; sourceTree = "<group>"; };
+		393773E01F0C8C61002F5078 /* DataMgr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMgr.swift; sourceTree = "<group>"; };
 		39597C301EF0DF4C00DBF3D4 /* pm_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pm_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		39597C331EF0DF4C00DBF3D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		39597C351EF0DF4C00DBF3D4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -122,8 +129,10 @@
 		399FDAAC1EF12D49006B93BA /* GFContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFContainer.swift; sourceTree = "<group>"; };
 		39B249FD1EF90E9A003C1F77 /* Mesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mesh.swift; sourceTree = "<group>"; };
 		39B249FF1EF90F2F003C1F77 /* SubMesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubMesh.swift; sourceTree = "<group>"; };
+		39B3C7F91F0C96EE009DF0D0 /* pm.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = pm.sqlite; sourceTree = "<group>"; };
 		39B7D8201EFB7276002BA65E /* res.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = res.bundle; sourceTree = "<group>"; };
 		39B7D8221EFB754D002BA65E /* PICAStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PICAStruct.swift; sourceTree = "<group>"; };
+		39BAB7E81F0C87E40094CBFC /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		39CB9BD41EF79FC900280DD5 /* Shader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shader.metal; sourceTree = "<group>"; };
 		39CB9BD91EF7A55600280DD5 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		39D5C6271EF77BEE003DE7F1 /* GFSubMesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFSubMesh.swift; sourceTree = "<group>"; };
@@ -168,9 +177,20 @@
 			path = pm_mac;
 			sourceTree = "<group>";
 		};
+		393773DD1F0C8B1D002F5078 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				393773DE1F0C8B1D002F5078 /* Pokemon+CoreDataProperties.swift */,
+				393773DF1F0C8B1D002F5078 /* Pokemon+CoreDataClass.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		39597C271EF0DF4C00DBF3D4 = {
 			isa = PBXGroup;
 			children = (
+				39B3C7F91F0C96EE009DF0D0 /* pm.sqlite */,
+				39BAB7E71F0C87E40094CBFC /* Model.xcdatamodeld */,
 				398C23791F0382E300512D6A /* pm */,
 				39597C321EF0DF4C00DBF3D4 /* pm_ios */,
 				39275DCB1F02711E00208F69 /* pm_mac */,
@@ -205,6 +225,7 @@
 		398C23791F0382E300512D6A /* pm */ = {
 			isa = PBXGroup;
 			children = (
+				393773DD1F0C8B1D002F5078 /* model */,
 				39FC0B8D1EF1155100675191 /* format */,
 				39CB9BD61EF7A51E00280DD5 /* render */,
 				39FC0B8B1EF1107C00675191 /* FileHandle.swift */,
@@ -212,6 +233,7 @@
 				39D5C62B1EF784CA003DE7F1 /* Util.swift */,
 				399FDAAA1EF12523006B93BA /* VectorMath.swift */,
 				39CB9BD41EF79FC900280DD5 /* Shader.metal */,
+				393773E01F0C8C61002F5078 /* DataMgr.swift */,
 			);
 			path = pm;
 			sourceTree = "<group>";
@@ -391,6 +413,7 @@
 				3975E0E81F02755800503A63 /* PICAEnum.swift in Sources */,
 				3975E0E91F02755800503A63 /* PICAStruct.swift in Sources */,
 				3975E0EA1F02755800503A63 /* GFFragShaderContainer.swift in Sources */,
+				39BAB7EA1F0C87E40094CBFC /* Model.xcdatamodeld in Sources */,
 				3975E0EB1F02755800503A63 /* GFFragShader.swift in Sources */,
 				3975E0EC1F02755800503A63 /* GFAnimContainer.swift in Sources */,
 				3975E0ED1F02755800503A63 /* GFSkeletonAnim.swift in Sources */,
@@ -400,6 +423,7 @@
 				3975E0F11F02755800503A63 /* Mesh.swift in Sources */,
 				3975E0F21F02755800503A63 /* SubMesh.swift in Sources */,
 				3975E0F31F02755800503A63 /* Material.swift in Sources */,
+				393773E21F0C8C61002F5078 /* DataMgr.swift in Sources */,
 				3975E0F41F02755800503A63 /* Texture.swift in Sources */,
 				39275DCF1F02711E00208F69 /* ViewController.swift in Sources */,
 				39275DCD1F02711E00208F69 /* AppDelegate.swift in Sources */,
@@ -433,6 +457,7 @@
 				39B7D8231EFB754D002BA65E /* PICAStruct.swift in Sources */,
 				39E0937D1EFBA241009E1D29 /* PICAEnum.swift in Sources */,
 				399B14641EFA3F8C00E6037F /* Texture.swift in Sources */,
+				39BAB7E91F0C87E40094CBFC /* Model.xcdatamodeld in Sources */,
 				39D61C151F011ED90080352F /* GFVisibilityAnim.swift in Sources */,
 				39B24A001EF90F2F003C1F77 /* SubMesh.swift in Sources */,
 				39CB9BDA1EF7A55600280DD5 /* Model.swift in Sources */,
@@ -442,6 +467,7 @@
 				390C12551EF3D546001D6B8E /* GFMesh.swift in Sources */,
 				399FDAAD1EF12D49006B93BA /* GFContainer.swift in Sources */,
 				39D61C131F011A610080352F /* GFMaterialAnim.swift in Sources */,
+				393773E11F0C8C61002F5078 /* DataMgr.swift in Sources */,
 				399E84091EFA1DB7006DF112 /* GFTextureContainer.swift in Sources */,
 				39597C341EF0DF4C00DBF3D4 /* AppDelegate.swift in Sources */,
 				39FC0B8F1EF1158700675191 /* GFPackage.swift in Sources */,
@@ -680,6 +706,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		39BAB7E71F0C87E40094CBFC /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				39BAB7E81F0C87E40094CBFC /* Model.xcdatamodel */,
+			);
+			currentVersion = 39BAB7E81F0C87E40094CBFC /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 39597C281EF0DF4C00DBF3D4 /* Project object */;
 }

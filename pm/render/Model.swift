@@ -12,9 +12,13 @@ import Metal
 class Model {
     var meshes:[Mesh] = []
     var anims:[Anim] = []
-    var bones:[Bone] = []
+    var baseBones:[Bone] = []
+    var curBones:[Bone] = []
     var materialDict:Dictionary<String, Material> = [:]
     var textureDict:Dictionary<String, Texture> = [:]
+    
+    
+    var transformBuffer:MTLBuffer? = nil
     
     init(gfModel:GFModelContainer){
         for gfMaterial in gfModel.materials {
@@ -30,16 +34,17 @@ class Model {
         for gfBone in gfModel.bones {
             let bone = Bone.init(gfBone: gfBone)
             bone.parentIndex = findParentIndex(name: bone.parentName, in: gfModel.bones)
-            bones.append(bone)
+            baseBones.append(bone)
         }
         
-        for bone in bones {
-            bone.calTransform(bones: bones)
+        for bone in baseBones {
+            bone.calTransform(bones: baseBones)
         }
+        curBones = baseBones
     }
     
     private func findParentIndex(name:String, in Bones:[GFBone]) -> Int {
-        for (index, gfBone) in bones.enumerated() {
+        for (index, gfBone) in baseBones.enumerated() {
             if gfBone.name == name {
                 return index
             }
@@ -50,6 +55,9 @@ class Model {
     public func render(_ encoder:MTLRenderCommandEncoder) {
         for mesh in meshes {
             for subMesh in mesh.subMeshes {
+                if subMesh.isVisible == false || subMesh.depthStencilState == nil {
+                    continue
+                }
                 let material = materialDict[subMesh.materialName]!
                 for (index, textureName) in material.textureNames.enumerated() {
                     let texture = textureDict[textureName]
@@ -58,6 +66,22 @@ class Model {
                 }
                 let arr = material.transforms[0].toArray()
                 encoder.setVertexBytes(arr, length: arr.count * MemoryLayout.size(ofValue: arr[0]), index: 3)
+                
+                var transforms:[Matrix4] = Array.init(repeating: Matrix4.identity, count: 32)
+                for i in 0 ..< transforms.count {
+                    if i < subMesh.boneIndices.count && subMesh.boneIndices[i] < baseBones.count {
+                        let boneIndex = subMesh.boneIndices[i]
+                        var transform = curBones[boneIndex].inheritTransform
+                        transform = transform * baseBones[boneIndex].inverseTransform
+                        transforms[i] = transform
+                    }
+                }
+                var transformArr:[Float] = []
+                for i in transforms {
+                    transformArr += i.toArray()
+                }
+                let len = transformArr.count * MemoryLayout.size(ofValue: transformArr[0])
+                encoder.setVertexBytes(transformArr, length: len, index: 4)
                 
                 encoder.setCullMode(material.cullMode)
                 encoder.setStencilReferenceValue(material.stencilReference)
@@ -74,9 +98,9 @@ class Model {
         
         if RenderEngine.sharedInstance.isRenderBone {
             var pointArr:[Float] = []
-            for bone in bones {
+            for bone in curBones {
                 if bone.parentIndex > 0 {
-                    let arr2 = (Vector4.init(x: 0, y: 0, z: 0, w: 1)*bones[bone.parentIndex].inheritTransform).toArray()
+                    let arr2 = (Vector4.init(x: 0, y: 0, z: 0, w: 1)*curBones[bone.parentIndex].inheritTransform).toArray()
                     pointArr.append(arr2[0])
                     pointArr.append(arr2[1])
                     pointArr.append(arr2[2])

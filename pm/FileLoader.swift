@@ -15,7 +15,7 @@ class FileLoader {
         let num = (index-1) * 9 + 1
         let package = GFPackage.init()
         
-        if let modelPath = Bundle.main.path(forResource: "res.bundle/file_\(String.init(format: "%05d", num))", ofType: "pc") {
+        if let modelPath = Bundle.main.path(forResource: "res.bundle/pc/file_\(String.init(format: "%05d", num))", ofType: "pc") {
             if let modelFile = FileHandle.init(forReadingAtPath: modelPath) {
                 package.merg(withFile: modelFile)
                 modelFile.closeFile()
@@ -23,7 +23,7 @@ class FileLoader {
         }
         
         
-        if let texturePath = Bundle.main.path(forResource: "res.bundle/file_\(String.init(format: "%05d", num+1))", ofType: "pc") {
+        if let texturePath = Bundle.main.path(forResource: "res.bundle/pc/file_\(String.init(format: "%05d", num+1))", ofType: "pc") {
             if let textureFile = FileHandle.init(forReadingAtPath: texturePath) {
                 package.merg(withFile: textureFile)
                 textureFile.closeFile()
@@ -31,7 +31,7 @@ class FileLoader {
         }
         
         
-        if let animPath = Bundle.main.path(forResource: "res.bundle/file_\(String.init(format: "%05d", num+4))", ofType: "pc") {
+        if let animPath = Bundle.main.path(forResource: "res.bundle/pc/file_\(String.init(format: "%05d", num+4))", ofType: "pc") {
             if let animFile = FileHandle.init(forReadingAtPath: animPath) {
                 package.merg(withFile: animFile)
                 animFile.closeFile()
@@ -47,7 +47,7 @@ class FileLoader {
             }
             
             for gfAnim in package.anims {
-                let anim = Anim.init(gfAnim: gfAnim, bones: model.bones)
+                let anim = Anim.init(gfAnim: gfAnim, bones: model.baseBones)
                 model.anims.append(anim)
             }
             

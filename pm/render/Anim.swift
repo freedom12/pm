@@ -100,7 +100,7 @@ class Anim {
     }
     
     public func getTransforms(at frame:Int) -> [Bone] {
-        //缩放继承的骨骼动画可能会有问题？
+        //todo 缩放继承的骨骼动画可能会有问题？
         var tmpBones:[Bone] = []
         for bone in bones {
             let tmpBone = Bone.init(bone: bone)

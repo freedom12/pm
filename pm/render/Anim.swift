@@ -10,6 +10,8 @@ import Foundation
 
 class Anim {
     var skeletonElements:[AnimElement] = []
+    var visibilityAnim:GFVisibilityAnim? = nil
+    
     var bones:[Bone] = []
     
     var frameCount = 0
@@ -55,6 +57,8 @@ class Anim {
                 }
             }
         }
+        
+        visibilityAnim = gfAnim.visibilityAnim
     }
     
     private func findBone(name:String, in bones:[Bone]) -> Bone? {

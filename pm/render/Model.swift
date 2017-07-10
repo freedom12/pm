@@ -17,6 +17,8 @@ class Model {
     var materialDict:Dictionary<String, Material> = [:]
     var textureDict:Dictionary<String, Texture> = [:]
     
+    var curFrame = 0
+    var animIndex = 0
     
     var transformBuffer:MTLBuffer? = nil
     
@@ -52,12 +54,43 @@ class Model {
         return -1
     }
     
+    public func changeAnim(num:Int) {
+        animIndex += num
+        if animIndex >= anims.count {
+            animIndex = 0
+        }
+        if animIndex < 0 {
+            animIndex = anims.count - 1
+        }
+        curFrame = 0
+    }
+    
+    public func updateFrame() {
+        if anims.count == 0 {
+            return
+        }
+        if curFrame >= anims[animIndex].frameCount {
+            curFrame = 0
+        }
+        curBones = anims[animIndex].getTransforms(at: curFrame)
+        curFrame += 1
+    }
+    
     public func render(_ encoder:MTLRenderCommandEncoder) {
         for mesh in meshes {
+            let anim = anims[animIndex]
+            
+            if let elem = anim.visibilityAnim?.visibilities.filter({$0.name == mesh.name}).first {
+                if !elem.values[curFrame] {
+                    continue
+                }
+            }
+            
             for subMesh in mesh.subMeshes {
                 if subMesh.isVisible == false || subMesh.depthStencilState == nil {
                     continue
                 }
+                
                 let material = materialDict[subMesh.materialName]!
                 for (index, textureName) in material.textureNames.enumerated() {
                     let texture = textureDict[textureName]

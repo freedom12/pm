@@ -34,16 +34,10 @@ class ViewController: UIViewController {
     }
     
     @IBAction func nextAnimHandler(_ sender: Any) {
-        animIndex += 1
-        if animIndex >= (model?.anims.count)! {
-            animIndex = 0
-        }
+        model?.changeAnim(num: 1)
     }
     @IBAction func lastAnimHandler(_ sender: Any) {
-        animIndex -= 1
-        if animIndex < 0 {
-            animIndex = (model?.anims.count)! - 1
-        }
+        model?.changeAnim(num: -1)
     }
     
     @IBAction func changeBoneHandler(_ sender: Any) {
@@ -66,14 +60,13 @@ class ViewController: UIViewController {
                                             near: 0.1, far: 10000)
         
         index = (UserDefaults.standard.value(forKey: "pmIndex") as? Int) ?? 1
-        index = 141
+        index = 23
         load(index)
     }
     
-    var index = 33//1072
-    var animIndex = 0
+    var index = 1//1072
     var model:Model? = nil
-    var timer:Timer? = nil
+    var timer:Timer! = nil
     private func load(_ _index:Int) {
         index = _index
         let num = (index-1) * 9 + 1
@@ -91,21 +84,9 @@ class ViewController: UIViewController {
         RenderEngine.sharedInstance.clear()
         RenderEngine.sharedInstance.add(model: model)
         
-        animIndex = 0
-        var frame = 0
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 1.0/30.0, repeats: true) { _ in
-            if self.model == nil {
-                return
-            }
-            if self.model?.anims.count == 0 {
-                return
-            }
-            if frame >= (self.model?.anims[self.animIndex].frameCount)! {
-                frame = 0
-            }
-            self.model?.curBones = (self.model?.anims[self.animIndex].getTransforms(at: frame))!
-            frame += 1
+            self.model?.updateFrame()
         }
     }
 

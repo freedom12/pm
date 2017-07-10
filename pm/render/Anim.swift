@@ -9,8 +9,8 @@
 import Foundation
 
 class Anim {
-    var skeletonElements:[AnimElement] = []
-    var visibilityAnim:GFVisibilityAnim? = nil
+    var skeletonAnimDic = Dictionary<String, [Transform]>()
+    var visibilityAnimDic = Dictionary<String, [Bool]>()
     
     var bones:[Bone] = []
     
@@ -22,11 +22,8 @@ class Anim {
         bones = _bones
         if let skeletonAnim = gfAnim.skeletonAnim {
             for transform in skeletonAnim.transforms {
-                let bone = findBone(name: transform.name, in: bones)
-                if let bone = bone {
-                    var animElement = AnimElement()
-                    animElement.name = transform.name
-                    animElement.primitiveType = .quatTransform
+                if let bone = bones.filter({$0.name == transform.name}).first {
+                    var arr = Array<Transform>()
                     for frame in 0 ..< frameCount {
                         var scale = bone.scale
                         scale.x = getValue(at: frame, from: transform.scaleXFrames, value: scale.x)
@@ -51,23 +48,18 @@ class Anim {
                         }
                         
                         let transform = Transform(scale: scale, rotation: quat, translation: translation)
-                        animElement.transforms.append(transform)
+                        arr.append(transform)
                     }
-                    skeletonElements.append(animElement)
+                    skeletonAnimDic[transform.name] = arr
                 }
             }
         }
         
-        visibilityAnim = gfAnim.visibilityAnim
-    }
-    
-    private func findBone(name:String, in bones:[Bone]) -> Bone? {
-        for bone in bones {
-            if bone.name == name {
-                return bone
+        if let visibilities = gfAnim.visibilityAnim?.visibilities {
+            for visibility in visibilities {
+                visibilityAnimDic[visibility.name] = visibility.values
             }
         }
-        return nil
     }
     
     private func getValue(at frame:Int, from keyFrames:[GFKeyFrame], value:Float) -> Float {
@@ -108,16 +100,10 @@ class Anim {
         var tmpBones:[Bone] = []
         for bone in bones {
             let tmpBone = Bone.init(bone: bone)
-            let arr = skeletonElements.filter({$0.name == bone.name})
-            if arr.count > 0 {
-                let elem = arr[0]
-                switch elem.primitiveType {
-                case .quatTransform:
-                    tmpBone.scale = elem.transforms[frame].scale
-                    tmpBone.rotation = elem.transforms[frame].rotation
-                    tmpBone.translation = elem.transforms[frame].translation
-                default: break
-                }
+            if let transforms = skeletonAnimDic[bone.name] {
+                tmpBone.scale = transforms[frame].scale
+                tmpBone.rotation = transforms[frame].rotation
+                tmpBone.translation = transforms[frame].translation
             }
             tmpBones.append(tmpBone)
         }
@@ -134,23 +120,24 @@ struct Transform {
     var rotation = Quaternion.identity
     var translation = Vector3.init(0, 0, 0)
 }
+//
+//struct AnimElement {
+//    var name = ""
+//    var transforms:[Transform] = []
+//    var targetType = 1
+//    var primitiveType:AnimPrimitiveType = .float
+//}
+//
+//enum AnimPrimitiveType:Int {
+//    case float = 0
+//    case integer
+//    case vect2d
+//    case vect3d
+//    case transform
+//    case rgba
+//    case texture
+//    case quatTransform
+//    case boolean
+//    case mtxTransform
+//}
 
-struct AnimElement {
-    var name = ""
-    var transforms:[Transform] = []
-    var targetType = 1
-    var primitiveType:AnimPrimitiveType = .float
-}
-
-enum AnimPrimitiveType:Int {
-    case float = 0
-    case integer
-    case vect2d
-    case vect3d
-    case transform
-    case rgba
-    case texture
-    case quatTransform
-    case boolean
-    case mtxTransform
-}

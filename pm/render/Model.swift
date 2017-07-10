@@ -79,9 +79,8 @@ class Model {
     public func render(_ encoder:MTLRenderCommandEncoder) {
         for mesh in meshes {
             let anim = anims[animIndex]
-            
-            if let elem = anim.visibilityAnim?.visibilities.filter({$0.name == mesh.name}).first {
-                if !elem.values[curFrame] {
+            if let visibility = anim.visibilityAnimDic[mesh.name] {
+                if !visibility[curFrame] {
                     continue
                 }
             }

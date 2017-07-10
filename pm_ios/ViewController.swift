@@ -60,11 +60,11 @@ class ViewController: UIViewController {
                                             near: 0.1, far: 10000)
         
         index = (UserDefaults.standard.value(forKey: "pmIndex") as? Int) ?? 1
-        index = 23
+//        index = 23
         load(index)
     }
     
-    var index = 1//1072
+    var index = 1
     var model:Model? = nil
     var timer:Timer! = nil
     private func load(_ _index:Int) {
@@ -74,11 +74,6 @@ class ViewController: UIViewController {
         indexLabel.text = "No.\(num),\(index)"
         UserDefaults.standard.set(index, forKey: "pmIndex")
         UserDefaults.standard.synchronize()
-        
-//        //mega 宝石鬼，mega 海皇牙，火斑喵进化
-//        if index == 140 || index == 540 || index == 1037 {
-//            return
-//        }
         
         model = FileLoader.sharedInstance.load(gfPackageIndex: index)
         RenderEngine.sharedInstance.clear()

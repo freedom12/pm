@@ -74,6 +74,9 @@ class Model {
     }
     
     public func render(_ encoder:MTLRenderCommandEncoder) {
+        if anims.count <= animIndex {
+            return
+        }
         let curBones = anims[animIndex].getSkeletonTransforms(at: curFrame)
         for mesh in meshes {
             let anim = anims[animIndex]

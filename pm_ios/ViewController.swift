@@ -57,7 +57,7 @@ class ViewController: UIViewController {
         RenderEngine.sharedInstance.viewMat = viewMat
         RenderEngine.sharedInstance.projMat = Matrix4.init(fovx: 45*Float.pi/180,
                                             aspect: Scalar(mtkView.bounds.width/mtkView.bounds.height),
-                                            near: 0.1, far: 10000)
+                                            near: 1, far: 10000)
         
         index = (UserDefaults.standard.value(forKey: "pmIndex") as? Int) ?? 1
 //        index = 1

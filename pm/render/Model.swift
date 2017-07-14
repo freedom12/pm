@@ -13,7 +13,6 @@ class Model {
     var meshes:[Mesh] = []
     var anims:[Anim] = []
     var baseBones:[Bone] = []
-    var curBones:[Bone] = []
     var materialDict:Dictionary<String, Material> = [:]
     var textureDict:Dictionary<String, Texture> = [:]
     
@@ -42,7 +41,6 @@ class Model {
         for bone in baseBones {
             bone.calTransform(bones: baseBones)
         }
-        curBones = baseBones
     }
     
     private func findParentIndex(name:String, in Bones:[GFBone]) -> Int {
@@ -69,14 +67,14 @@ class Model {
         if anims.count == 0 {
             return
         }
+        curFrame += 1
         if curFrame >= anims[animIndex].frameCount {
             curFrame = 0
         }
-        curBones = anims[animIndex].getTransforms(at: curFrame)
-        curFrame += 1
     }
     
     public func render(_ encoder:MTLRenderCommandEncoder) {
+        let curBones = anims[animIndex].getSkeletonTransforms(at: curFrame)
         for mesh in meshes {
             let anim = anims[animIndex]
             if let visibility = anim.visibilityAnimDic[mesh.name] {
@@ -97,7 +95,18 @@ class Model {
                     encoder.setFragmentSamplerState(material.samplerStates[index], index: index)
                     
                     if index == 0 {
-                        let arr = material.transforms[0].toArray()
+                        var arr = material.transforms[0].toArray()
+                        
+                        if let transforms = anim.materialAnimDic[material.name + String(index)] {
+                            let transform = transforms[curFrame]
+                            let trans = Vector2.init(-transform.translation.x, -transform.translation.y)
+                            var mat = Matrix3.init(translation: trans)
+                            mat = Matrix3.init(rotation: transform.rotation) * mat
+                            mat = Matrix3.init(scale: transform.scale) * mat
+                            
+                            arr = mat.toArray()
+                        }
+                        
                         encoder.setVertexBytes(arr, length: arr.count * MemoryLayout.size(ofValue: arr[0]), index: 3)
                     }
                 }

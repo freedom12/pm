@@ -13,6 +13,10 @@ class Material {
     var name = ""
     var textureNames:[String] = []
     var samplerStates:[MTLSamplerState] = []
+    
+    var scales:[Vector2] = []
+    var translations:[Vector2] = []
+    var rotations:[Float] = []
     var transforms:[Matrix3] = []
     
     var alphaBendEnable = false
@@ -55,6 +59,9 @@ class Material {
             desc.lodMinClamp = Float(sampler.minLOD)
             let samplerState = device.makeSamplerState(descriptor: desc)!
             samplerStates.append(samplerState)
+            translations.append(sampler.translation)
+            rotations.append(sampler.rotation)
+            scales.append(sampler.scale)
             transforms.append(sampler.transform)
         }
         

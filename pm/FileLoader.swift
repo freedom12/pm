@@ -47,7 +47,7 @@ class FileLoader {
             }
             
             for gfAnim in package.anims {
-                let anim = Anim.init(gfAnim: gfAnim, bones: model.baseBones)
+                let anim = Anim.init(gfAnim: gfAnim, bones: model.baseBones, materials: model.materialDict)
                 model.anims.append(anim)
             }
             

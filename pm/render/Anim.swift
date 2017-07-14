@@ -10,16 +10,19 @@ import Foundation
 
 class Anim {
     var skeletonAnimDic = Dictionary<String, [Transform]>()
+    var materialAnimDic = Dictionary<String, [UVTransform]>()
     var visibilityAnimDic = Dictionary<String, [Bool]>()
     
     var bones:[Bone] = []
+    var materials:Dictionary<String, Material> = Dictionary<String, Material>()
     
     var frameCount = 0
     var isLoop = false
-    init(gfAnim:GFAnim, bones _bones:[Bone]) {
+    init(gfAnim:GFAnim, bones _bones:[Bone], materials _materials:Dictionary<String, Material>) {
         frameCount = gfAnim.frameCount
         isLoop = gfAnim.isLoop
         bones = _bones
+        materials = _materials
         if let skeletonAnim = gfAnim.skeletonAnim {
             for transform in skeletonAnim.transforms {
                 if let bone = bones.filter({$0.name == transform.name}).first {
@@ -47,10 +50,30 @@ class Anim {
                             quat = Quaternion.init(axisAngle: Vector4.init(Vector3.z, w: rotation.z)) * Quaternion.init(axisAngle: Vector4.init(Vector3.y, w: rotation.y)) * Quaternion.init(axisAngle: Vector4.init(Vector3.x, w: rotation.x))
                         }
                         
-                        let transform = Transform(scale: scale, rotation: quat, translation: translation)
-                        arr.append(transform)
+                        arr.append(Transform(scale: scale, rotation: quat, translation: translation))
                     }
                     skeletonAnimDic[transform.name] = arr
+                }
+            }
+        }
+        
+        if let materialAnims = gfAnim.materialAnim {
+            for transform in materialAnims.transforms {
+                if let matrial = materials[transform.name] {
+                    var arr = Array<UVTransform>()
+                    for frame in 0 ..< transform.frameCount {
+                        var rotation = matrial.rotations[transform.unitIndex]
+                        rotation = getValue(at: frame, from: transform.rotationFrames, value: rotation)
+                        var scale = matrial.scales[transform.unitIndex]
+                        scale.x = getValue(at: frame, from: transform.scaleXFrames, value: scale.x)
+                        scale.y = getValue(at: frame, from: transform.scaleYFrames, value: scale.y)
+                        var translation = matrial.translations[transform.unitIndex]
+                        translation.x = getValue(at: frame, from: transform.translationXFrames, value: translation.x)
+                        translation.y = getValue(at: frame, from: transform.translationYFrames, value: translation.y)
+                        
+                        arr.append(UVTransform(scale: scale, rotation: rotation, translation: translation))
+                    }
+                    materialAnimDic[transform.name + String(transform.unitIndex)] = arr
                 }
             }
         }
@@ -95,7 +118,7 @@ class Anim {
         return result
     }
     
-    public func getTransforms(at frame:Int) -> [Bone] {
+    public func getSkeletonTransforms(at frame:Int) -> [Bone] {
         //todo 缩放继承的骨骼动画可能会有问题？
         var tmpBones:[Bone] = []
         for bone in bones {
@@ -119,6 +142,21 @@ struct Transform {
     var scale = Vector3.init(0, 0, 0)
     var rotation = Quaternion.identity
     var translation = Vector3.init(0, 0, 0)
+}
+
+struct UVTransform {
+    var scale = Vector2.init(0, 0)
+    var rotation:Float = 0
+    var translation = Vector2.init(0, 0)
+    
+    var transform:Matrix3 {
+        get {
+            var mat = Matrix3.init(translation: translation)
+            mat = Matrix3.init(rotation: rotation) * mat
+            mat = Matrix3.init(scale: scale) * mat
+            return mat
+        }
+    }
 }
 //
 //struct AnimElement {

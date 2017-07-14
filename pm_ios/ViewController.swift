@@ -60,7 +60,7 @@ class ViewController: UIViewController {
                                             near: 0.1, far: 10000)
         
         index = (UserDefaults.standard.value(forKey: "pmIndex") as? Int) ?? 1
-//        index = 23
+//        index = 1
         load(index)
     }
     

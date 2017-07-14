@@ -172,40 +172,41 @@ class SubMesh {
             "       constant float4x4& mvMat [[buffer(2)]],\n" +
             "       constant packed_float3* matetialMatArr [[buffer(3)]],\n" +
             "       constant float4x4* animMatArr [[buffer(4)]],\n" +
-            "       constant float4* fixedAttrArr [[buffer(10)]],\n" +
             "       unsigned int vid [[ vertex_id ]]) {\n" +
             "   Vout out;\n"
         if !fixedAttrExists[PICAAttrName.texCoord0.rawValue] {
             str += "    float2 texcoord0 = in.texcoord0;\n"
         } else {
-            str += "    float2 texcoord0 = float2(0);\n"
-            str += "    texcoord0.xy = fixedAttrArr[\(PICAAttrName.texCoord0.rawValue)].xy;\n"
+            let vect = fixedAttrs[PICAAttrName.texCoord0.rawValue]
+            str += "    float2 texcoord0 = float2(\(vect.x),\(vect.y));\n"
         }
         if !fixedAttrExists[PICAAttrName.texCoord1.rawValue] {
             str += "    float2 texcoord1 = in.texcoord1;\n"
         } else {
-            str += "    float2 texcoord1 = float2(0);\n"
-            str += "    texcoord1.xy = fixedAttrArr[\(PICAAttrName.texCoord1.rawValue)].xy;\n"
+            let vect = fixedAttrs[PICAAttrName.texCoord1.rawValue]
+            str += "    float2 texcoord1 = float2(\(vect.x),\(vect.y));\n"
         }
         if !fixedAttrExists[PICAAttrName.texCoord2.rawValue] {
             str += "    float2 texcoord2 = in.texcoord2;\n"
         } else {
-            str += "    float2 texcoord2 = float2(0);\n"
-            str += "    texcoord2.xy = fixedAttrArr[\(PICAAttrName.texCoord2.rawValue)].xy;\n"
+            let vect = fixedAttrs[PICAAttrName.texCoord2.rawValue]
+            str += "    float2 texcoord2 = float2(\(vect.x),\(vect.y));\n"
         }
         if !fixedAttrExists[PICAAttrName.boneIndex.rawValue] {
             str += "    int4 boneIndex = (int4(in.boneIndex) & 0x1f);\n"
         } else {
+            let vect = fixedAttrs[PICAAttrName.boneIndex.rawValue]
             str += "    int4 boneIndex = int4(0);\n"
-            str += "    boneIndex[0] = (int(fixedAttrArr[\(PICAAttrName.boneIndex.rawValue)][0]) & 0x1f);\n"
-            str += "    boneIndex[1] = (int(fixedAttrArr[\(PICAAttrName.boneIndex.rawValue)][1]) & 0x1f);\n"
-            str += "    boneIndex[2] = (int(fixedAttrArr[\(PICAAttrName.boneIndex.rawValue)][2]) & 0x1f);\n"
-            str += "    boneIndex[3] = (int(fixedAttrArr[\(PICAAttrName.boneIndex.rawValue)][3]) & 0x1f);\n"
+            str += "    boneIndex[0] = (int(\(vect.x)) & 0x1f);\n"
+            str += "    boneIndex[1] = (int(\(vect.y)) & 0x1f);\n"
+            str += "    boneIndex[2] = (int(\(vect.z)) & 0x1f);\n"
+            str += "    boneIndex[3] = (int(\(vect.w)) & 0x1f);\n"
         }
         if !fixedAttrExists[PICAAttrName.boneWeight.rawValue] {
             str += "    float4 boneWeight = in.boneWeight;\n"
         } else {
-            str += "    float4 boneWeight = fixedAttrArr[\(PICAAttrName.boneWeight.rawValue)];\n"
+            let vect = fixedAttrs[PICAAttrName.boneWeight.rawValue]
+            str += "    float4 boneWeight = float4(\(vect.x),\(vect.y),\(vect.z),\(vect.w));\n"
         }
         
         str += "    float4 pos = animMatArr[boneIndex[0]] * float4(in.translation, 1.0) * boneWeight[0];\n"

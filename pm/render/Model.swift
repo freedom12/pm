@@ -131,23 +131,16 @@ class Model {
                 let len = transformArr.count * MemoryLayout.size(ofValue: transformArr[0])
                 encoder.setVertexBytes(transformArr, length: len, index: 4)
                 
-                
-                var fixedAttrArr:[Float] = []
-                for i in subMesh.fixedAttrs {
-                    fixedAttrArr += i.toArray()
-                }
-                encoder.setVertexBytes(fixedAttrArr, length: fixedAttrArr.count*MemoryLayout.size(ofValue: fixedAttrArr[0]), index: 10)
-                
                 encoder.setCullMode(material.cullMode)
                 encoder.setStencilReferenceValue(material.stencilReference)
                 encoder.setDepthStencilState(subMesh.depthStencilState)
                 encoder.setRenderPipelineState(subMesh.renderPipelineState)
                 encoder.setVertexBuffer(subMesh.vertBuffer, offset: 0, index: 0)
                 encoder.drawIndexedPrimitives(type: .triangle,
-                                                    indexCount: subMesh.indexCount,
-                                                    indexType: subMesh.indexType,
-                                                    indexBuffer: subMesh.indexBuffer,
-                                                    indexBufferOffset: 0)
+                                              indexCount: subMesh.indexCount,
+                                              indexType: subMesh.indexType,
+                                              indexBuffer: subMesh.indexBuffer,
+                                              indexBufferOffset: 0)
             }
         }
         

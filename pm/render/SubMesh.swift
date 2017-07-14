@@ -194,7 +194,7 @@ class SubMesh {
             str += "    texcoord2.xy = fixedAttrArr[\(PICAAttrName.texCoord2.rawValue)].xy;\n"
         }
         if !fixedAttrExists[PICAAttrName.boneIndex.rawValue] {
-            str += "    uchar4 boneIndex = in.boneIndex;\n"
+            str += "    int4 boneIndex = (int4(in.boneIndex) & 0x1f);\n"
         } else {
             str += "    int4 boneIndex = int4(0);\n"
             str += "    boneIndex[0] = (int(fixedAttrArr[\(PICAAttrName.boneIndex.rawValue)][0]) & 0x1f);\n"

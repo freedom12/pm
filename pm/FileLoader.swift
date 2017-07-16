@@ -38,6 +38,20 @@ class FileLoader {
             }
         }
         
+        if let animPath = Bundle.main.path(forResource: "res.bundle/pc/file_\(String.init(format: "%05d", num+5))", ofType: "pc") {
+            if let animFile = FileHandle.init(forReadingAtPath: animPath) {
+                package.merg(withFile: animFile)
+                animFile.closeFile()
+            }
+        }
+        
+        if let animPath = Bundle.main.path(forResource: "res.bundle/pc/file_\(String.init(format: "%05d", num+6))", ofType: "pc") {
+            if let animFile = FileHandle.init(forReadingAtPath: animPath) {
+                package.merg(withFile: animFile)
+                animFile.closeFile()
+            }
+        }
+        
         if let gfModel = package.model {
             let model = Model.init(gfModel: gfModel)
             

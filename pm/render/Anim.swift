@@ -151,7 +151,7 @@ struct UVTransform {
     
     var transform:Matrix3 {
         get {
-            var mat = Matrix3.init(translation: translation)
+            var mat = Matrix3.init(translation: -translation)
             mat = Matrix3.init(rotation: rotation) * mat
             mat = Matrix3.init(scale: scale) * mat
             return mat

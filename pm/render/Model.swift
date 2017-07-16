@@ -77,9 +77,10 @@ class Model {
         if anims.count <= animIndex {
             return
         }
-        let curBones = anims[animIndex].getSkeletonTransforms(at: curFrame)
+        let anim = anims[animIndex]
+        let curBones = anim.getSkeletonTransforms(at: curFrame)
         for mesh in meshes {
-            let anim = anims[animIndex]
+            
             if let visibility = anim.visibilityAnimDic[mesh.name] {
                 if !visibility[curFrame] {
                     continue
@@ -101,13 +102,8 @@ class Model {
                         var arr = material.transforms[0].toArray()
                         
                         if let transforms = anim.materialAnimDic[material.name + String(index)] {
-                            let transform = transforms[curFrame]
-                            let trans = Vector2.init(-transform.translation.x, -transform.translation.y)
-                            var mat = Matrix3.init(translation: trans)
-                            mat = Matrix3.init(rotation: transform.rotation) * mat
-                            mat = Matrix3.init(scale: transform.scale) * mat
-                            
-                            arr = mat.toArray()
+                            let transform = transforms[curFrame].transform
+                            arr = transform.toArray()
                         }
                         
                         encoder.setVertexBytes(arr, length: arr.count * MemoryLayout.size(ofValue: arr[0]), index: 3)

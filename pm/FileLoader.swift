@@ -27,8 +27,7 @@ class FileLoader {
             if let textureFile = FileHandle.init(forReadingAtPath: texturePath) {
                 package.merg(withFile: textureFile)
                 textureFile.closeFile()
-            }
-        }
+            }         }
         
         
         if let animPath = Bundle.main.path(forResource: "res.bundle/pc/file_\(String.init(format: "%05d", num+4))", ofType: "pc") {

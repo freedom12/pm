@@ -16,7 +16,7 @@ class DataMgr:NSObject {
     lazy var managedObjectModel: NSManagedObjectModel = {
         //xcdatamodeld编译后为momd
         let modelURL = Bundle.main.url(forResource: "Model", withExtension: "momd")!
-        return NSManagedObjectModel(contentsOf: modelURL)!
+        return NSManagedObjectModel(contentsOf: modelURL)
     }()
     
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
@@ -29,7 +29,7 @@ class DataMgr:NSObject {
         //若想重新在模拟器（simulator）中重新使用该sqlite初始化，点击IOS Simulator->Reset Contents and Settings，重置模拟器即可
         if !fileManager.fileExists(atPath: storeURL.path) {
             var copyURL = Bundle.main.url(forResource: "pm", withExtension: "sqlite")!
-            try! fileManager.copyItem(at: copyURL, to: storeURL)
+  try! fileManager.copyItem(at: copyURL, to: storeURL)
         }
         //NSMigratePersistentStoresAutomaticallyOption是否自动迁移数据，
         //NSInferMappingModelAutomaticallyOption是否自动创建映射模型

@@ -23,6 +23,7 @@ class GFPackage {
     let GFModelConstant:Int = 0x15122117
     let GFTextureConstant:Int = 0x15041213
     let GFMotionConstant:Int = 0x00060000
+    let GFResourceConstant:Int = 0x00010000 //todo
     let BCHConstant:Int = 0x00484342
     let GFFragShaderConstant:Int = 217936
     
@@ -36,21 +37,22 @@ class GFPackage {
         file.seek(to: 0)
         
         _ = file.readString(len: 2)//magic
-        let entryCount = file.readUInt16()
+        let count = file.readUInt16()
+        
+        var offsets:[Int] = []
+        for _ in 0...count {
+            offsets.append(file.readUInt32())
+        }
+        
         var entries:[Entry] = []
-        let pos = file.pos
-        for i in 0...(entryCount-1) {
-            file.seek(to: (pos + i * 4))
-            let startAddr = file.readUInt32()
-            let endAddr = file.readUInt32()
-            
+        for i in 0...(count-1) {
             var entry = Entry()
-            entry.addr = pos - 4 + startAddr
-            entry.len = endAddr - startAddr
+            entry.addr = offsets[i]
+            entry.len = offsets[i+1] - offsets[i]
             entries.append(entry)
         }
         
-        for i in 0 ..< entryCount {
+        for i in 0 ..< count {
             file.seek(to: entries[i].addr)
             let magicNum = file.readUInt32()
             file.seek(to: entries[i].addr)

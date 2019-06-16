@@ -122,7 +122,7 @@ class Texture {
         }
         
         let ret = NSData.init(bytes: outBuffer, length: width*height*4)
-        outBuffer.deallocate(capacity: width*height*4)
+        outBuffer.deallocate()
         return ret
     }
 }

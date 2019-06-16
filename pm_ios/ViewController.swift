@@ -103,8 +103,13 @@ class ViewController: UIViewController {
                 
                 let vect1 = getArcBallVect(point: p1)
                 let vect2 = getArcBallVect(point: p2)
+                
+                
+//                let angle = asin(vect1.dot(vect2))
+//                let axis = vect1.cross(vect2)
+//                let quaternion = Quaternion.init(axisAngle: Vector4.init(axis.normalized(), w: angle * 2))
                 let vect = vect2-vect1
-                let quaternion = Quaternion.init(pitch: 0, yaw: vect.x, roll: 0)
+                let quaternion = Quaternion.init(pitch: vect.x, yaw: 0, roll: 0)
                 viewMat = viewMat * Matrix4.init(quaternion: quaternion)
                 RenderEngine.sharedInstance.viewMat = viewMat
             }

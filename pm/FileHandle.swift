@@ -8,8 +8,21 @@
 
 import Foundation
 
+extension Data {
+    init<T>(from value: T) {
+        self = Swift.withUnsafeBytes(of: value) { Data($0) }
+    }
+    
+    func to<T>(type: T.Type) -> T? where T: ExpressibleByIntegerLiteral {
+        var value: T = 0
+        guard count >= MemoryLayout.size(ofValue: value) else { return nil }
+        _ = Swift.withUnsafeMutableBytes(of: &value, { copyBytes(to: $0)} )
+        return value
+    }
+}
+
 public extension FileHandle {
-    public func length() -> Int {
+    func length() -> Int {
         let position = self.offsetInFile
         self.seekToEndOfFile()
         let len = self.offsetInFile
@@ -17,95 +30,118 @@ public extension FileHandle {
         return Int(len)
     }
     
-    public func readUInt64() -> Int {
+    func readUInt64() -> Int {
         let len = 8
-        let data = NSData.init(data: self.readData(ofLength: len))
-        var val:UInt64 = 0
-        data.getBytes(&val, length: len)
-        return Int(val)
+        let data = self.readData(ofLength: len)
+        if let val = data.to(type: UInt64.self) {
+            return Int(val)
+        } else {
+            print("not enough data")
+            return 0
+        }
     }
     
-    public func readUInt32() -> Int {
+    func readUInt32() -> Int {
         let len = 4
-        let data = NSData.init(data: self.readData(ofLength: len))
-        var val:UInt32 = 0
-        data.getBytes(&val, length: len)
-        return Int(val)
+        let data = self.readData(ofLength: len)
+        if let val = data.to(type: UInt32.self) {
+            return Int(val)
+        } else {
+            print("not enough data")
+            return 0
+        }
     }
     
-    public func readUInt16() -> Int {
+    func readUInt16() -> Int {
         let len = 2
-        let data = NSData.init(data: self.readData(ofLength: len))
-        var val:UInt16 = 0
-        data.getBytes(&val, length: len)
-        return Int(val)
+        let data = self.readData(ofLength: len)
+        if let val = data.to(type: UInt16.self) {
+            return Int(val)
+        } else {
+            print("not enough data")
+            return 0
+        }
     }
     
-    public func readUInt8() -> Int {
+    func readUInt8() -> Int {
         let len = 1
-        let data = NSData.init(data: self.readData(ofLength: len))
-        var val:UInt8 = 0
-        data.getBytes(&val, length: len)
-        return Int(val)
+        let data = self.readData(ofLength: len)
+        if let val = data.to(type: UInt8.self) {
+            return Int(val)
+        } else {
+            print("not enough data")
+            return 0
+        }
     }
     
-    public func readInt64() -> Int {
+    func readInt64() -> Int {
         let len = 8
-        let data = NSData.init(data: self.readData(ofLength: len))
-        var val:Int64 = 0
-        data.getBytes(&val, length: len)
-        return Int(val)
+        let data = self.readData(ofLength: len)
+        if let val = data.to(type: Int64.self) {
+            return Int(val)
+        } else {
+            print("not enough data")
+            return 0
+        }
     }
     
-    public func readInt32() -> Int {
+    func readInt32() -> Int {
         let len = 4
-        let data = NSData.init(data: self.readData(ofLength: len))
-        var val:Int32 = 0
-        data.getBytes(&val, length: len)
-        return Int(val)
+        let data = self.readData(ofLength: len)
+        if let val = data.to(type: Int32.self) {
+            return Int(val)
+        } else {
+            print("not enough data")
+            return 0
+        }
     }
     
-    public func readInt16() -> Int {
+    func readInt16() -> Int {
         let len = 2
-        let data = NSData.init(data: self.readData(ofLength: len))
-        var val:Int16 = 0
-        data.getBytes(&val, length: len)
-        return Int(val)
+        let data = self.readData(ofLength: len)
+        if let val = data.to(type: Int16.self) {
+            return Int(val)
+        } else {
+            print("not enough data")
+            return 0
+        }
     }
     
-    public func readInt8() -> Int {
+    func readInt8() -> Int {
         let len = 1
-        let data = NSData.init(data: self.readData(ofLength: len))
-        var val:Int8 = 0
-        data.getBytes(&val, length: len)
-        return Int(val)
-    }
+        let data = self.readData(ofLength: len)
+        if let val = data.to(type: Int8.self) {
+            return Int(val)
+        } else {
+            print("not enough data")
+            return 0
+        }    }
     
     
-    public func readString(len:Int) -> String {
+    func readString(len:Int) -> String {
         let data = self.readData(ofLength: len)
         var str = String.init(data: data, encoding: String.Encoding.ascii)!
         str = str.replacingOccurrences(of: "\0", with: "")
         return str
     }
     
-    public func readStringByte() -> String {
+    func readStringByte() -> String {
         let len = readUInt8()
         return readString(len: len)
     }
         
-    public func readByte() -> Data {
+    func readByte() -> Data {
         let data = self.readData(ofLength: 1)
         return data
     }
     
-    public func readSByte() -> Data {
+    func readSByte() -> Data {
         let data = self.readData(ofLength: 1)
         return data
     }
     
     
-    public func skipPadding() {
+    func skipPadding() {
         while ((self.offsetInFile & 0xf) != 0) {
             _ = self.readByte()
         }
@@ -117,35 +153,41 @@ public extension FileHandle {
         }
     }
     
-    public func seek(to pos:Int) {
+    func seek(to pos:Int) {
         self.seek(toFileOffset: UInt64(pos))
     }
     
-    public func seek(by pos:Int) {
+    func seek(by pos:Int) {
         self.seek(to: self.pos + pos)
     }
     
-    public func readSingle() -> Float {
+    func readSingle() -> Float {
         let len = 4
-        let data = NSData.init(data: self.readData(ofLength: len))
-        var val:Float = 0
-        data.getBytes(&val, length: len)
-        return val
+//        let data = NSData.init(data: self.readData(ofLength: len))
+//        var val:Float = 0
+//        data.getBytes(&val, length: len)
+        let data = self.readData(ofLength: len)
+        if let val = data.to(type: Float.self) {
+            return val
+        } else {
+            print("not enough data")
+            return 0
+        }
     }
     
-    public func readVector2() -> Vector2 {
+    func readVector2() -> Vector2 {
         return Vector2.init(readSingle(), readSingle())
     }
     
-    public func readVector3() -> Vector3 {
+    func readVector3() -> Vector3 {
         return Vector3.init(readSingle(), readSingle(), readSingle())
     }
     
-    public func readVector4() -> Vector4 {
+    func readVector4() -> Vector4 {
         return Vector4.init(readSingle(), readSingle(), readSingle(), readSingle())
     }
     
-    public func readMatrix3() -> Matrix3 {
+    func readMatrix3() -> Matrix3 {
         return Matrix3.init(
             readSingle(), readSingle(), readSingle(),
             readSingle(), readSingle(), readSingle(),
@@ -153,7 +195,7 @@ public extension FileHandle {
         )
     }
     
-    public func readMatrix4() -> Matrix4 {
+    func readMatrix4() -> Matrix4 {
         return Matrix4.init(
             readSingle(), readSingle(), readSingle(), readSingle(),
             readSingle(), readSingle(), readSingle(), readSingle(),

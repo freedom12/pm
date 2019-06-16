@@ -37,7 +37,6 @@ class Anim {
                         rotation.x = getValue(at: frame, from: transform.rotationXFrames, value: rotation.x)
                         rotation.y = getValue(at: frame, from: transform.rotationYFrames, value: rotation.y)
                         rotation.z = getValue(at: frame, from: transform.rotationZFrames, value: rotation.z)
-                        
                         var translation = bone.translation
                         translation.x = getValue(at: frame, from: transform.translationXFrames, value: translation.x)
                         translation.y = getValue(at: frame, from: transform.translationYFrames, value: translation.y)
@@ -49,7 +48,6 @@ class Anim {
                         } else {
                             quat = Quaternion.init(axisAngle: Vector4.init(Vector3.z, w: rotation.z)) * Quaternion.init(axisAngle: Vector4.init(Vector3.y, w: rotation.y)) * Quaternion.init(axisAngle: Vector4.init(Vector3.x, w: rotation.x))
                         }
-                        
                         arr.append(Transform(scale: scale, rotation: quat, translation: translation))
                     }
                     skeletonAnimDic[transform.name] = arr
@@ -84,7 +82,7 @@ class Anim {
             }
         }
     }
-    
+
     private func getValue(at frame:Int, from keyFrames:[GFKeyFrame], value:Float) -> Float {
         if keyFrames.count <= 0 {
             return value

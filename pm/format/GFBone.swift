@@ -14,6 +14,9 @@ class GFBone {
     var parent = ""
     var flags = 0
     
+    var stable = false
+    var animatable = false
+    
     var scale = Vector3.init(0, 0, 0)
     var rotation = Vector3.init(0, 0, 0)
     var position = Vector3.init(0, 0, 0)
@@ -23,7 +26,10 @@ class GFBone {
         
         name = file.readStringByte()
         parent = file.readStringByte()
-        flags = file.readInt8()
+        flags = file.readUInt8()
+        
+        stable = (flags & (1 << 0)) != 0
+        animatable = (flags & (1 << 1)) != 0
         
         scale = file.readVector3()
         rotation = file.readVector3()

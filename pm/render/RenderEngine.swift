@@ -28,7 +28,7 @@ class RenderEngine:NSObject, MTKViewDelegate {
     var vertFunc_t0:MTLFunction
     var fragFunc_t0:MTLFunction
     
-    var isRenderBone = false
+    var isRenderBone = true
     
     override init() {
         device = MTLCreateSystemDefaultDevice()

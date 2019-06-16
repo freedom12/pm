@@ -16,7 +16,7 @@ class DataMgr:NSObject {
     lazy var managedObjectModel: NSManagedObjectModel = {
         //xcdatamodeld编译后为momd
         let modelURL = Bundle.main.url(forResource: "Model", withExtension: "momd")!
-        return NSManagedObjectModel(contentsOf: modelURL)
+        return NSManagedObjectModel(contentsOf: modelURL)!
     }()
     
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
